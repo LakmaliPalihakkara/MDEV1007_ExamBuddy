@@ -8,15 +8,19 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
    
     @IBOutlet weak var tblToday: UITableView!
     
-      var assignmentArray:[String]=[]
+      var todayArray:[String]=[]
+      var upComingArray:[String]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tblToday.delegate = self
+        tblToday.dataSource = self
 
         // Do any additional setup after loading the view.
     }
@@ -33,4 +37,28 @@ class HomeViewController: UIViewController {
     }
     */
 
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+           // #warning Incomplete implementation, return the number of sections
+        return 1
+       }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           // #warning Incomplete implementation, return the number of rows
+           return todayArray.count
+       }
+
+       
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+           let cell = tableView.dequeueReusableCell(withIdentifier: "cellForInfoTable", for: indexPath)as! HomeTableViewCell
+
+
+           cell.assignmentName.text = todayArray[indexPath.row]
+
+          // cell.viewButton.tag = indexPath.item
+
+           return cell
+        
+       }
+       
 }

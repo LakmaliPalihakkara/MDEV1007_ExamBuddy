@@ -21,10 +21,20 @@ class AddSubmissionViewController: UIViewController {
     
      var assignmentArray=[String]()
     
+      let datePicker = UIDatePicker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+//        let datePicker = UIDatePicker()
+//        datePicker.datePickerMode = .date
+//        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
+//        datePicker.frame.size = CGSize(width: 0, height: 250)
+//        datePicker.preferredDatePickerStyle = .wheels
+//
+//        dueDate.inputView = datePicker
+        
+        createDatePicker()
     }
     
 
@@ -49,12 +59,6 @@ class AddSubmissionViewController: UIViewController {
         
         assignmentArray.append(examName.text!)
         
-        
-        print("name \(examName.text)")
-        print("course \(courseName.text)")
-        print("type \(type.text)")
-        print("due date \(dueDate.text)")
-        
     }
     
      // MARK: - Navigation
@@ -62,15 +66,68 @@ class AddSubmissionViewController: UIViewController {
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             
             if segue.identifier=="goToHome" {
-                let destinationVC=segue.destination as! HomeTableViewController
+                let destinationVC=segue.destination as! HomeViewController
 
                  saveData()
                 
-                 destinationVC.assignmentArray = assignmentArray
+                 destinationVC.todayArray = assignmentArray
                 
             }
         }
     
+//
+//    @objc func dateChange(datePicker: UIDatePicker)
+//    {
+//        dueDate.text = formatDate(date: datePicker.date)
+//    }
+//
+//    func formatDate(date: Date) -> String{
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MMM dd yyyy"
+//        return formatter.string(from: date)
+//    }
+    
+    func createDatePicker(){
+        
+        datePicker.minimumDate = Date()
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        datePicker.frame.size = CGSize(width: 0, height: 250)
+        
+        
+        
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
+            toolbar.setItems([doneBtn], animated: true)
+        
+//        if #available(iOS 13.4, *) {Thread()
+//           datePicker.preferredDatePickerStyle = .wheels
+//
+//
+//        }
+//
+        dueDate.inputAccessoryView = toolbar
+                    
+        dueDate.inputView = datePicker
+                    
+        datePicker.datePickerMode = .date
+      
+    }
+    
+    
+    @objc func donePressed(){
+           
+           let formatter = DateFormatter()
+           formatter.dateFormat = "MMM dd, yyyy"
+          // let selectedDate = formatter.string(from: datePicker.date)
+//           formatter.dateStyle = .medium
+//           formatter.timeStyle = .none
+           
+        dueDate.text = formatter.string(from: datePicker.date)
+           self.view.endEditing(true)
+       }
+       
 }
 
 
