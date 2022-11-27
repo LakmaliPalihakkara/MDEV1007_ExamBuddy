@@ -19,9 +19,14 @@ class AddSubmissionViewController: UIViewController {
     
     @IBOutlet weak var dueDate: UITextField!
     
-     var assignmentArray=[String]()
+    // var assignmentArray=[String]()
+    
+    var todayArray=[String]()
+    var upcomingArray=[String]()
     
       let datePicker = UIDatePicker()
+    
+        let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,23 +46,51 @@ class AddSubmissionViewController: UIViewController {
     func saveData () {
         
         
-        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
+//        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
+//
+//        let tenCount = userDefault + 1
+//        //var eachName = nameArray[indexOfTenant]
+//
+//
+//        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
+//
+//        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
+//
+//        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
+//
+//        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
+//
+//        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
+//
+//       // assignmentArray.append(examName.text!)
+//
+//         let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
+//
+//        print ("UserDefaults\(String(describing: returnValue))")
         
-        let tenCount = userDefault + 1
-        //var eachName = nameArray[indexOfTenant]
-        
-        
-        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME+examName.text!)
-        
-        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
     
-        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
+       
         
-        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
+     
         
-        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
         
-        assignmentArray.append(examName.text!)
+      if(dueDate.text == getCurrentDate() )
+      {
+         todayArray.append(examName.text!)
+         userDefaults.set(todayArray, forKey: "todayArr")
+
+      }
+    
+        if(dueDate.text ?? "" > getCurrentDate() ){
+          
+          upcomingArray.append(examName.text!)
+             userDefaults.set(upcomingArray, forKey: "upComingArr")
+          
+      }
+        
+        Constant.duedatesave = dueDate.text ?? ""
+        
+       
         
     }
     
@@ -70,7 +103,29 @@ class AddSubmissionViewController: UIViewController {
 
                  saveData()
                 
-                 destinationVC.todayArray = assignmentArray
+//                let formatter = DateFormatter()
+//
+//                formatter.dateFormat = "MMM dd, yyyy"
+//                let now = Date()
+//                let dateString = formatter.string(from:now)
+//
+//                print ("dueDate.text \(String(describing: dueDate.text))")
+//                print ("dateString \(dateString)")
+                
+                if(dueDate.text == getCurrentDate() )
+                {
+                    //print ("todayArray \(dateString)")
+                    
+                 
+                    
+                 destinationVC.todayArray = todayArray
+                }
+                
+                if(dueDate.text ?? "" > getCurrentDate() ){
+                    
+                     print ("AddSubmission")
+                    destinationVC.upComingArray = upcomingArray
+                }
                 
             }
         }
@@ -86,6 +141,17 @@ class AddSubmissionViewController: UIViewController {
 //        formatter.dateFormat = "MMM dd yyyy"
 //        return formatter.string(from: date)
 //    }
+    
+    func getCurrentDate() -> String
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy"
+        let now = Date()
+        let dateString = formatter.string(from:now)
+        
+        return dateString
+    }
+       
     
     func createDatePicker(){
         
@@ -138,4 +204,6 @@ struct Constant {
     static let COURSE_NAME="courseName"
     static let TYPE="TYPE"
     static let DUE_DATE="dueDate"
+    
+    static var duedatesave = ""
 }
