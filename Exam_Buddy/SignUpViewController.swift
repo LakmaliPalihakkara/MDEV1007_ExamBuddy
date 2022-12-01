@@ -22,10 +22,15 @@ class SignUpViewController: UIViewController {
         let userObj: UserObject = UserObject()
         var filterData : [String] = []
         
-        override func viewDidLoad() {
+    @IBOutlet weak var btnSignup: UIButton!
+    
+    override func viewDidLoad() {
             super.viewDidLoad()
 
             // Do any additional setup after loading the view.
+            
+            setTextStyle()
+                      
         }
         
 
@@ -43,7 +48,38 @@ class SignUpViewController: UIViewController {
             let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "home") as! HomeViewController
             self.present(balanceViewController, animated: true, completion: nil)
             
+            
         }
+    
+    func setTextStyle(){
+        
+
+        self.textFieldUsername.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+        textFieldUsername.layer.cornerRadius = 15.0
+        textFieldUsername.clipsToBounds = true
+        textFieldUsername.layer.borderWidth = 2.0
+        
+        
+        self.textFieldEmail.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+        textFieldEmail.layer.cornerRadius = 15.0
+        textFieldEmail.clipsToBounds = true
+        textFieldEmail.layer.borderWidth = 2.0
+        
+        
+        self.textFieldPassword.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+        textFieldPassword.layer.cornerRadius = 15.0
+        textFieldPassword.clipsToBounds = true
+        textFieldPassword.layer.borderWidth = 2.0
+        
+        self.textFieldConfirmPassword.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+        textFieldConfirmPassword.layer.cornerRadius = 15.0
+        textFieldConfirmPassword.clipsToBounds = true
+        textFieldConfirmPassword.layer.borderWidth = 2.0
+        
+        btnSignup.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+        btnSignup.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        btnSignup.layer.cornerRadius = 10;
+    }
 
     }
 

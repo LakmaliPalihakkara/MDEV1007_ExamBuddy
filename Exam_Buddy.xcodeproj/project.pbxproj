@@ -11,6 +11,7 @@
 		CE52F3AA292D4A6B0030A6A8 /* AddSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F3A9292D4A6B0030A6A8 /* AddSubmissionViewController.swift */; };
 		CE52F3AC292D4ECF0030A6A8 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F3AB292D4ECF0030A6A8 /* HomeTableViewController.swift */; };
 		CE52F3AE292D504C0030A6A8 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52F3AD292D504C0030A6A8 /* HomeTableViewCell.swift */; };
+		CE55720129354B7300FB9A6C /* UpdateSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55720029354B7300FB9A6C /* UpdateSubmissionViewController.swift */; };
 		CE7884222932E78600D00A55 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7884212932E78600D00A55 /* NotificationCenter.framework */; };
 		CE7884252932E78600D00A55 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7884242932E78600D00A55 /* TodayViewController.swift */; };
 		CE7884282932E78600D00A55 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE7884262932E78600D00A55 /* MainInterface.storyboard */; };
@@ -58,6 +59,7 @@
 		CE52F3A9292D4A6B0030A6A8 /* AddSubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubmissionViewController.swift; sourceTree = "<group>"; };
 		CE52F3AB292D4ECF0030A6A8 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		CE52F3AD292D504C0030A6A8 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		CE55720029354B7300FB9A6C /* UpdateSubmissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSubmissionViewController.swift; sourceTree = "<group>"; };
 		CE78841F2932E78600D00A55 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7884212932E78600D00A55 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		CE7884242932E78600D00A55 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				CE52F3AD292D504C0030A6A8 /* HomeTableViewCell.swift */,
 				CE1A5E6C2932CC3100575896 /* NotificationGenerator.swift */,
 				CE7884312933048B00D00A55 /* UpcomingTableViewCell.swift */,
+				CE55720029354B7300FB9A6C /* UpdateSubmissionViewController.swift */,
 			);
 			path = Exam_Buddy;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				CE7884322933048B00D00A55 /* UpcomingTableViewCell.swift in Sources */,
 				CE1A5E6D2932CC3100575896 /* NotificationGenerator.swift in Sources */,
 				CE7FBC65291B4A32002B76D6 /* SignUpViewController.swift in Sources */,
+				CE55720129354B7300FB9A6C /* UpdateSubmissionViewController.swift in Sources */,
 				CE7FBC63291B4A01002B76D6 /* HomeViewController.swift in Sources */,
 				CE7FBC49291B2E40002B76D6 /* ViewController.swift in Sources */,
 				CE7FBC6B291B7AF8002B76D6 /* SubmissionObject.swift in Sources */,

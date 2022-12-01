@@ -1,14 +1,14 @@
 //
-//  AddSubmissionViewController.swift
+//  UpdateSubmissionViewController.swift
 //  Exam_Buddy
 //
-//  Created by Nirosha on 2022-11-22.
+//  Created by Nirosha on 2022-11-28.
 //  Copyright © 2022 Nirosha. All rights reserved.
 //
 
 import UIKit
 
-class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
+class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var examName: UITextField!
@@ -19,12 +19,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var dueDate: UITextField!
     
-    
-    @IBOutlet weak var btnSave: UIButton!
-    
+    @IBOutlet weak var tfname: UITextField!
     // var assignmentArray=[String]()
-    
-    
     
     var todayArray=[String]()
     var upcomingArray=[String]()
@@ -45,14 +41,9 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
 //        dueDate.inputView = datePicker
         
       //  if(examName.text  != ""){
+        tfname.delegate = self
         
-        setTextStyle()
-        
-        
-        
-      //  examName.delegate = self
-        
-     //   examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
+        tfname.text = UserDefaults.standard.string(forKey: UpdateConstant.ASSIGNMENT_NAME)
       //  }
         
         createDatePicker()
@@ -62,23 +53,23 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
     func saveData () {
         
         
-        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
+        let userDefault=UserDefaults.standard.integer(forKey: UpdateConstant.COUNT)
 
         let tenCount = userDefault + 1
         //var eachName = nameArray[indexOfTenant]
 
 
-        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
+        UserDefaults.standard.set(examName.text, forKey: UpdateConstant.ASSIGNMENT_NAME)
 
-        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
+        UserDefaults.standard.set(courseName.text!, forKey: UpdateConstant.COURSE_NAME+courseName.text!)
 
-        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
+        UserDefaults.standard.set(type.text, forKey: UpdateConstant.TYPE+type.text!)
 
-        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
+        UserDefaults.standard.set(dueDate.text, forKey: UpdateConstant.DUE_DATE+dueDate.text!)
 
-        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
+        UserDefaults.standard.set(tenCount, forKey: UpdateConstant.COUNT)
 //
-//        assignmentArray.append(examName.text!)
+//       // assignmentArray.append(examName.text!)
 //
          let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
 //
@@ -100,7 +91,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         if(dueDate.text ?? "" > getCurrentDate() ){
           
           upcomingArray.append(examName.text!)
-          //   userDefaults.set(upcomingArray, forKey: "upComingArr")
+             userDefaults.set(upcomingArray, forKey: "upComingArr")
           
       }
         
@@ -119,7 +110,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
 
               
                 
-             //   var view = UserDefaults.standard.bool(forKey: UpdateConstant.VIEW)
+                var view = UserDefaults.standard.bool(forKey: ViewConstant.VIEW)
                 
                 
                 
@@ -134,32 +125,32 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
 //                print ("dueDate.text \(String(describing: dueDate.text))")
 //                print ("dateString \(dateString)")
                 
-                saveData()
-                
                 if(dueDate.text == getCurrentDate() )
                 {
                     //print ("todayArray \(dateString)")
                     
-//                    if(view){
-//
-//                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
-//
-//
-//                        todayArray.removeAll()
+                    if(view){
                         
-                         
+                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
+                          
                         
-//                         destinationVC.todayArray = todayArray
-//                    }
-//                    else
-//                    {
-//                        saveData()
-//
-//                         destinationVC.todayArray = todayArray
-//                    }
-//
+                        todayArray.remove(at: 0)
+                        
+                         saveData()
+                        
+                         destinationVC.todayArray = todayArray
+                        
+                        UserDefaults.standard.set(false, forKey: ViewConstant.VIEW)
+                    }
+                    else
+                    {
+                        saveData()
+                        
+                         destinationVC.todayArray = todayArray
+                    }
+                    
                  
-                    destinationVC.todayArray = todayArray
+                    
                 
                 }
                 
@@ -235,45 +226,11 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         dueDate.text = formatter.string(from: datePicker.date)
            self.view.endEditing(true)
        }
-    
-    
-    func setTextStyle(){
-        
-
-        self.examName.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
-        examName.layer.cornerRadius = 15.0
-        examName.clipsToBounds = true
-        examName.layer.borderWidth = 2.0
-        
-        
-        self.courseName.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
-        courseName.layer.cornerRadius = 15.0
-        courseName.clipsToBounds = true
-        courseName.layer.borderWidth = 2.0
-        
-        
-        self.type.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
-        type.layer.cornerRadius = 15.0
-        type.clipsToBounds = true
-        type.layer.borderWidth = 2.0
-        
-        self.dueDate.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
-        dueDate.layer.cornerRadius = 15.0
-        dueDate.clipsToBounds = true
-        dueDate.layer.borderWidth = 2.0
-        
-        btnSave.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
-        btnSave.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        btnSave.layer.cornerRadius = 10;
-    }
-
-
-
        
 }
 
 
-struct Constant {
+struct UpdateConstant {
     static let COUNT="count"
     static let ASSIGNMENT="assignment"
     static let ASSIGNMENT_NAME="assignmentName"

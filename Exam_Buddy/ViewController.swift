@@ -23,9 +23,24 @@ class ViewController: UIViewController {
         override func viewDidLoad() {
             super.viewDidLoad()
 
+    
+            self.usernameTextField.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+            usernameTextField.layer.cornerRadius = 15.0
+            usernameTextField.clipsToBounds = true
+            usernameTextField.layer.borderWidth = 2.0
+           
+            
+            self.passwordTextField.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
+            passwordTextField.layer.cornerRadius = 15.0
+            passwordTextField.clipsToBounds = true
+            passwordTextField.layer.borderWidth = 2.0
+            
+            loginBtn.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+            loginBtn.heightAnchor.constraint(equalToConstant: 50.0).isActive = true
             loginBtn.layer.cornerRadius = 10;
+                      
+            
 
-        
             
         }
         
