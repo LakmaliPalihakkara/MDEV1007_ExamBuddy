@@ -360,7 +360,7 @@
                                         </constraints>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForInfoTable" id="imV-ie-tff" customClass="HomeTableViewCell" customModule="Exam_Buddy" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForUpcomingTable" id="imV-ie-tff" customClass="UpcomingTableViewCell" customModule="Exam_Buddy" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="imV-ie-tff" id="n7G-zC-OC7">
@@ -383,9 +383,6 @@
                                                             <state key="normal" title="View">
                                                                 <color key="titleColor" red="0.0" green="0.035294117649999998" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
-                                                            <connections>
-                                                                <action selector="onClickView:" destination="imV-ie-tff" eventType="touchUpInside" id="OQh-VX-sgJ"/>
-                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -402,8 +399,7 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
-                                                    <outlet property="assignmentName" destination="L93-Vj-Oqs" id="QHO-D3-egV"/>
-                                                    <outlet property="btnView" destination="xgr-ml-c6Y" id="a0V-7v-ew3"/>
+                                                    <outlet property="name" destination="L93-Vj-Oqs" id="FWr-sB-wwR"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -652,6 +648,7 @@
                     <navigationItem key="navigationItem" id="Icb-aE-NAS"/>
                     <connections>
                         <outlet property="tblToday" destination="fNx-DD-NKF" id="jv4-j5-tIN"/>
+                        <outlet property="tblUpcoming" destination="cxp-Yd-uVV" id="cj2-28-Zpf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4id-wH-nnD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -965,7 +962,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mkk-bS-BKp"/>
         <segue reference="YHW-8P-sR0"/>
     </inferredMetricsTieBreakers>
     <resources>

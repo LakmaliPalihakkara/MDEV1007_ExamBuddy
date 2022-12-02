@@ -42,6 +42,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         todayArray = stringArray
    //     upComingArray = upcomingArr
         
+                let upComingArr = userDefaults.stringArray(forKey: "upComingArr") ?? [String]()
+           upComingArray = upComingArr
+        
         
         
         if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
@@ -149,6 +152,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let destinationVC=segue.destination as! AddSubmissionViewController
 
              destinationVC.todayArray = todayArray
+             destinationVC.upcomingArray = upComingArray
            
             
             
@@ -161,6 +165,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //destinationVC.rowSelected = viewButton.tag
             destinationVC.todayArray = todayArray
+            destinationVC.upcomingArray = upComingArray
         
             
             

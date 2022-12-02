@@ -100,7 +100,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         if(dueDate.text ?? "" > getCurrentDate() ){
           
           upcomingArray.append(examName.text!)
-          //   userDefaults.set(upcomingArray, forKey: "upComingArr")
+          userDefaults.set(upcomingArray, forKey: "upComingArr")
           
       }
         
