@@ -114,6 +114,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
               let cellUpcoming = tableView.dequeueReusableCell(withIdentifier: "cellForUpcomingTable", for: indexPath)as! UpcomingTableViewCell
               print ("cellForRowAt")
              cellUpcoming.name.text = upComingArray[indexPath.row]
+             cellUpcoming.delegateUpcoming = self
             return cellUpcoming
         }
         

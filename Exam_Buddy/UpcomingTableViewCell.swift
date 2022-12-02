@@ -8,9 +8,34 @@
 
 import UIKit
 
+protocol UpcomingTableViewCellDelegate: AnyObject {
+    func didTapButton(with title: String)
+}
+
 class UpcomingTableViewCell: UITableViewCell {
+    
+    weak var delegateUpcoming : HomeTableViewCellDelegate?
+    
+    static let identifer = "cellForInfoTable"
+    
+    static func nib() -> UINib {
+        return UINib(nibName: "cellForInfoTable", bundle: nil)
+    }
 
     @IBOutlet weak var name: UILabel!
+    
+    
+
+    @IBAction func onClickBtnView(_ sender: Any) {
+        
+        UserDefaults.standard.set(true, forKey: ViewConstant.VIEW)
+               
+               delegateUpcoming?.didTapButton(with: title)
+               
+    }
+    
+    
+    private var title : String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,5 +47,13 @@ class UpcomingTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    func configure(with title: String)
+    {
+        self.title = title
+        print ("indexttle \(title)")
+    }
+    
 
 }
