@@ -168,7 +168,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
                    if(dueDate.text ?? "" > getCurrentDate() ){
                        
                         print ("AddSubmission")
-                       destinationVC.upComingArray = upcomingArray
+                     //  destinationVC.upComingArray = upcomingArray
                    }
                    
                }
@@ -182,7 +182,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
                 saveData()
                 
                 // userDefaults.set(upcomingArray, forKey: "upComingArr")
-                 destinationVC.upComingArray = upcomingArray
+               //  destinationVC.upComingArray = upcomingArray
               
                
             }

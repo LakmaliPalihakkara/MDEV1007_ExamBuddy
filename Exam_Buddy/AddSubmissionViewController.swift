@@ -24,10 +24,13 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     // var assignmentArray=[String]()
     
+    var submissionObject = [SubmissionObject]()
+    
     
     
     var todayArray=[String]()
     var upcomingArray=[String]()
+     var upcomingArray1=[SubmissionObject]()
     
       let datePicker = UIDatePicker()
     
@@ -98,9 +101,40 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
       }
     
         if(dueDate.text ?? "" > getCurrentDate() ){
+            
+            
           
-          upcomingArray.append(examName.text!)
-          userDefaults.set(upcomingArray, forKey: "upComingArr")
+          //  upcomingArray.append(examName.text!)
+            
+       //   userDefaults.set(upcomingArray, forKey: "upComingArr")
+            
+            let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!)
+            upcomingArray1.append(submission1)
+          //  userDefaults.set(upcomingArray1, forKey: "upComingArr")
+            
+            do {
+                let encodeData = try JSONEncoder().encode(upcomingArray1)
+                UserDefaults.standard.set(encodeData, forKey: "submissionAdd")
+                // synchronize is not needed
+            } catch { print(error) }
+            
+            for submission in upcomingArray1 {
+                
+                 
+                
+                self.submissionObject += [submission1]
+                
+                let encoder = JSONEncoder()
+                           if let encoded = try? encoder.encode(submission) {
+                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
+                           }
+                
+          //       upcomingArray.append(submission)
+                
+        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
+                
+                print(submission)
+            }
           
       }
         
@@ -166,7 +200,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
                 if(dueDate.text ?? "" > getCurrentDate() ){
                     
                      print ("AddSubmission")
-                    destinationVC.upComingArray = upcomingArray
+                  //  destinationVC.upComingArray = upcomingArray
+                    destinationVC.upComingArray = upcomingArray1
                 }
                 
             }
@@ -283,3 +318,6 @@ struct Constant {
     
     static var duedatesave = ""
 }
+
+
+

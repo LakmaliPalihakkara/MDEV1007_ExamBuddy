@@ -24,6 +24,7 @@ class UpcomingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var name: UILabel!
     
+    @IBOutlet weak var courseName: UILabel!
     
 
     @IBAction func onClickBtnView(_ sender: Any) {

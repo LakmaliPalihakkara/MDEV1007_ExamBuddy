@@ -19,15 +19,36 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tblUpcoming: UITableView!
     
     var todayArray:[String]=[]
-    var upComingArray:[String]=[]
+ //   var upComingArray:[String]=[]
+    
+    var upComingArray:[SubmissionObject]=[]
     
     let notificationGenerator = NotificationGenerator()
     
     let userDefaults = UserDefaults.standard
+    
+    var upComingArr : SubmissionObject?
+    
+  //   var note : SubmissionObject?
+    
+    
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let decoder = JSONDecoder()
+//        if let submissionData = UserDefaults.standard.data(forKey: "submissionObject"),
+//            let user = try? decoder.decode(UserObject.self, from: submissionData) {
+//
+//
+//            for submission in submissionData {
+//
+//               print("submission\(submission)")
+//            }
+//
+//        }
+        //
         
          tblToday.backgroundColor = UIColor.clear
         
@@ -42,8 +63,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         todayArray = stringArray
    //     upComingArray = upcomingArr
         
-                let upComingArr = userDefaults.stringArray(forKey: "upComingArr") ?? [String]()
-           upComingArray = upComingArr
+       if let data = UserDefaults.standard.data(forKey: "submissionAdd") {
+           do {
+               // Create JSON Decoder
+               let decoder = JSONDecoder()
+
+               // Decode Note
+               upComingArr = try decoder.decode(SubmissionObject.self, from: data)
+
+           } catch {
+               print("Unable to Decode Note (\(error))")
+           }
+       }
+           // upComingArray = upComingArr
         
         
         
@@ -113,7 +145,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
               let cellUpcoming = tableView.dequeueReusableCell(withIdentifier: "cellForUpcomingTable", for: indexPath)as! UpcomingTableViewCell
               print ("cellForRowAt")
-             cellUpcoming.name.text = upComingArray[indexPath.row]
+         //    cellUpcoming.name.text = upComingArray[indexPath.row]
+         //   cellUpcoming.courseName.text = upComingArray[indexPath.row]
+            
+            cellUpcoming.name.text = upComingArray[indexPath.row].exam
+            cellUpcoming.courseName.text = upComingArray[indexPath.row].course
+            
              cellUpcoming.delegateUpcoming = self
             return cellUpcoming
         }
@@ -153,7 +190,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let destinationVC=segue.destination as! AddSubmissionViewController
 
              destinationVC.todayArray = todayArray
-             destinationVC.upcomingArray = upComingArray
+            // destinationVC.upcomingArray = upComingArray
+            
+            destinationVC.upcomingArray1 = upComingArray
            
             
             
@@ -166,13 +205,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             //destinationVC.rowSelected = viewButton.tag
             destinationVC.todayArray = todayArray
-            destinationVC.upcomingArray = upComingArray
+           // destinationVC.upcomingArray = upComingArray
+            
+          //  destinationVC.upcomingArray1 = upComingArray
         
             
             
         }
     }
     
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        if editingStyle == .delete{
+            upComingArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            // userDefaults.set(upComingArray, forKey: "upComingArr")
+            
+            do {
+                let encodeData = try JSONEncoder().encode(upComingArr)
+                UserDefaults.standard.set(encodeData, forKey: "submissionAdd")
+                // synchronize is not needed
+            } catch { print(error) }
+        }
+    }
 //   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //         
 //
