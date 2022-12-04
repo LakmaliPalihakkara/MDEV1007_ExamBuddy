@@ -63,18 +63,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         todayArray = stringArray
    //     upComingArray = upcomingArr
         
-       if let data = UserDefaults.standard.data(forKey: "submissionAdd") {
+        let data = UserDefaults.standard.data(forKey: "submissionAdd")
            do {
                // Create JSON Decoder
                let decoder = JSONDecoder()
 
                // Decode Note
-               upComingArr = try decoder.decode(SubmissionObject.self, from: data)
+            upComingArr = try decoder.decode(SubmissionObject.self, from: data!)
 
            } catch {
                print("Unable to Decode Note (\(error))")
            }
-       }
+       
            // upComingArray = upComingArr
         
         
@@ -177,6 +177,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! HomeTableViewCell
         print(cell.textLabel?.text! as Any)
+        
+        print ("didSelectRowAt \(indexPath.row)")
     }
     
     

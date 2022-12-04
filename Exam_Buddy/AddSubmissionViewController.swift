@@ -118,23 +118,23 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
                 // synchronize is not needed
             } catch { print(error) }
             
-            for submission in upcomingArray1 {
-                
-                 
-                
-                self.submissionObject += [submission1]
-                
-                let encoder = JSONEncoder()
-                           if let encoded = try? encoder.encode(submission) {
-                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
-                           }
-                
-          //       upcomingArray.append(submission)
-                
-        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
-                
-                print(submission)
-            }
+//            for submission in upcomingArray1 {
+//
+//
+//
+//                self.submissionObject += [submission1]
+//
+//                let encoder = JSONEncoder()
+//                           if let encoded = try? encoder.encode(submission) {
+//                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
+//                           }
+//
+//          //       upcomingArray.append(submission)
+//
+//        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
+//
+//                print(submission)
+//            }
           
       }
         

@@ -58,6 +58,41 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
            createDatePicker()
        }
        
+    
+    
+    @IBAction func onClickDoneBtn(_ sender: Any) {
+        
+        
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to Logout?", preferredStyle: .alert)
+
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+             print("Ok button click...")
+             self.logoutFun()
+        })
+
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button click...")
+        }
+
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
+    func logoutFun()
+    {
+        print("Logout Successfully...!")
+        
+         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+         let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "welldone") as! WellDoneViewController
+         self.present(balanceViewController, animated: true, completion: nil)
+    }
+    
 
        func saveData () {
            
