@@ -13,6 +13,9 @@ class WellDoneViewController: UIViewController {
     
     @IBOutlet weak var welldone: UIImageView!
     
+    var upComingArray:[SubmissionObject]=[]
+    var completedArray:[SubmissionObject]=[]
+    
     
     override func viewDidAppear(_ animated: Bool) {
         animate()
@@ -57,4 +60,19 @@ class WellDoneViewController: UIViewController {
     }
     
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            
+            if segue.identifier=="goToHome" {
+                let destinationVC=segue.destination as! HomeViewController
+                
+                print("completedArray (\(completedArray))")
+                print("upComingArray (\(upComingArray))")
+            
+                    destinationVC.completedArray = completedArray
+                    destinationVC.upComingArray = upComingArray
+                 
+                    
+                }
+                
+            }
 }

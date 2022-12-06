@@ -61,26 +61,26 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     func saveData () {
         
-        
-        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
-        
-        let tenCount = userDefault + 1
-
-        
-        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
-        
-        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
-        
-        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
-        
-        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
-        
-        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
-     
-        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
-        
-        print ("UserDefaults\(String(describing: returnValue))")
-        
+//
+//        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
+//
+//        let tenCount = userDefault + 1
+//
+//
+//        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
+//
+//        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
+//
+//        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
+//
+//        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
+//
+//        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
+//
+//        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
+//
+//        print ("UserDefaults\(String(describing: returnValue))")
+//
         
         
         
@@ -116,7 +116,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
             
         }
         
-        Constant.duedatesave = dueDate.text ?? ""
+      //  Constant.duedatesave = dueDate.text ?? ""
         
         
         
@@ -309,16 +309,16 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
 }
 
 
-struct Constant {
-    static let COUNT="count"
-    static let ASSIGNMENT="assignment"
-    static let ASSIGNMENT_NAME="assignmentName"
-    static let COURSE_NAME="courseName"
-    static let TYPE="TYPE"
-    static let DUE_DATE="dueDate"
-    
-    static var duedatesave = ""
-}
+//struct Constant {
+//    static let COUNT="count"
+//    static let ASSIGNMENT="assignment"
+//    static let ASSIGNMENT_NAME="assignmentName"
+//    static let COURSE_NAME="courseName"
+//    static let TYPE="TYPE"
+//    static let DUE_DATE="dueDate"
+//
+//    static var duedatesave = ""
+//}
 
 
 

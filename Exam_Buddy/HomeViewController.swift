@@ -58,10 +58,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tblCompleted.layer.borderWidth = 1.0
  
         
-        let stringArray = userDefaults.stringArray(forKey: "todayArr") ?? [String]()
+   //     let stringArray = userDefaults.stringArray(forKey: "todayArr") ?? [String]()
         
     
-        todayArray = stringArray
+   //     todayArray = stringArray
         
         let data = UserDefaults.standard.data(forKey: "submissionAdd")
          let dataUpdate = UserDefaults.standard.data(forKey: "submissionUpdate")
@@ -90,12 +90,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         
-        if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
-         {
-        
-
-        tblToday.dataSource = self
-        }
+//        if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
+//         {
+//
+//
+//        tblToday.dataSource = self
+//        }
         
         print("upComingArr?.exam  (\(String(describing: upComingArr?.exam) ))")
         if (upComingArr?.exam  != nil)
@@ -121,7 +121,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
+        if(tableView == self.tblToday)
         {
            return todayArray.count
         }
@@ -151,7 +151,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView( _ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 
-        if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
+        if(tableView == self.tblToday)
       //  if(tableView == tblToday)
         {
           
@@ -187,6 +187,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
              cellUpcoming.delegateUpcoming = self
             
+            let prefs = UserDefaults.standard
+            prefs.removeObject(forKey:"index")
             
             cellUpcoming.btnView.tag = indexPath.row
             cellUpcoming.btnView.addTarget(self, action: #selector(buttonClickMethod(_:)), for: .touchUpInside)
@@ -226,11 +228,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     
     @objc func buttonClickMethod(_ sender: UIButton){
-       index = sender.tag
+       
         
         print("buttonNumber (\(index))")
         
-         UserDefaults.standard.set(index, forKey: "index")
+       
+        
+        index = sender.tag
+    
+        
+       
+        
+        UserDefaults.standard.set(index, forKey: "index")
     }
     
        
@@ -282,8 +291,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
           //  destinationVC.todayArray = todayArray
              destinationVC.upComingArray1 = upComingArray
              destinationVC.updateArray = completedArray
+            
+//            
+//            destinationVC.examName.text = upComingArray[index].exam
+//            destinationVC.courseName.text = upComingArray[index].course
+//            destinationVC.dueDate.text = upComingArray[index].date
+//             destinationVC.type.text = upComingArray[index].type
+            
           //  destinationVC.index = index
-        print ("goToUpdateindex \(index)")
+        print ("completedArray \(completedArray)")
             
             
         }
@@ -298,7 +314,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             // userDefaults.set(upComingArray, forKey: "upComingArr")
-            
+            UserDefaults.standard.removeObject(forKey:"index")
             do {
                 let encodeData = try JSONEncoder().encode(upComingArr)
                 UserDefaults.standard.set(encodeData, forKey: "submissionAdd")

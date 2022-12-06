@@ -38,6 +38,8 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     var index : Int = 0
     
+    var updateArr : SubmissionObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,10 +58,43 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         index = userDefaults.integer(forKey: "index")
         print("userDefaultsindex(\(index))")
         
-        examName.delegate = self
+//        let data = UserDefaults.standard.data(forKey: "submissionAdd")
+//
+//        do {
+//            // Create JSON Decoder
+//            let decoder = JSONDecoder()
+//
+//            // Decode Note
+//
+//            if(data != nil)
+//            {
+//                updateArr = try decoder.decode(SubmissionObject.self, from: data!)
+//
+//
+//            }
+//
+//
+//        } catch {
+//            print("Unable to Decode Note (\(error))")
+//        }
+//
+//
+//        examName.delegate = self
+//
+//        // examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
+//        examName.text = updateArr?.exam
+//        courseName.text = updateArr?.course
+//        dueDate.text = updateArr?.date
+//        type.text = updateArr?.type
+//        //  }
+//
         
-        examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
-        //  }
+        
+
+        examName.text = upComingArray1[index].exam
+        courseName.text = upComingArray1[index].course
+        dueDate.text = upComingArray1[index].date
+        type.text = upComingArray1[index].type
         
         createDatePicker()
     }
@@ -98,6 +133,11 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "welldone") as! WellDoneViewController
         self.present(balanceViewController, animated: true, completion: nil)
         
+          saveData()
+        
+        upComingArray1.remove(at: index)
+        balanceViewController.completedArray = updateArray
+        balanceViewController.upComingArray = upComingArray1
         
     }
     
@@ -105,34 +145,34 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     func saveData () {
         
         
-        let userDefault=UserDefaults.standard.integer(forKey: UpdateConstant.COUNT)
+        //       let userDefault=UserDefaults.standard.integer(forKey: UpdateConstant.COUNT)
         
-        let tenCount = userDefault + 1
+        //       let tenCount = userDefault + 1
         //var eachName = nameArray[indexOfTenant]
         
         
-        UserDefaults.standard.set(examName.text, forKey: UpdateConstant.ASSIGNMENT_NAME)
-        
-        UserDefaults.standard.set(courseName.text!, forKey: UpdateConstant.COURSE_NAME+courseName.text!)
-        
-        UserDefaults.standard.set(type.text, forKey: UpdateConstant.TYPE+type.text!)
-        
-        UserDefaults.standard.set(dueDate.text, forKey: UpdateConstant.DUE_DATE+dueDate.text!)
-        
-        UserDefaults.standard.set(tenCount, forKey: UpdateConstant.COUNT)
+        //        UserDefaults.standard.set(examName.text, forKey: UpdateConstant.ASSIGNMENT_NAME)
         //
-        //        assignmentArray.append(examName.text!)
+        //        UserDefaults.standard.set(courseName.text!, forKey: UpdateConstant.COURSE_NAME+courseName.text!)
         //
-        let returnValue: [String]? = UserDefaults.standard.object(forKey: UpdateConstant.ASSIGNMENT_NAME) as? [String]
+        //        UserDefaults.standard.set(type.text, forKey: UpdateConstant.TYPE+type.text!)
         //
-        print ("UserDefaults\(String(describing: returnValue))")
-        
-        
+        //        UserDefaults.standard.set(dueDate.text, forKey: UpdateConstant.DUE_DATE+dueDate.text!)
+        //
+        //        UserDefaults.standard.set(tenCount, forKey: UpdateConstant.COUNT)
+        //        //
+        //        //        assignmentArray.append(examName.text!)
+        //        //
+        //        let returnValue: [String]? = UserDefaults.standard.object(forKey: UpdateConstant.ASSIGNMENT_NAME) as? [String]
+        //        //
+        //        print ("UserDefaults\(String(describing: returnValue))")
+        //
+        //
         
         let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: true)
         updateArray.append(submission1)
         
-       
+        
         
         
         do {
@@ -151,23 +191,23 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         
         
         
-//        if(dueDate.text == getCurrentDate() )
-//        {
-//            todayArray.append(examName.text!)
-//            userDefaults.set(todayArray, forKey: "todayArr")
-//
-//        }
-//
-//        if(dueDate.text ?? "" > getCurrentDate() ){
-//
-//            print ("remove")
-//            //  upcomingArray.remove(at: 0)
-//            upcomingArray.append(examName.text!)
-//            userDefaults.set(upcomingArray, forKey: "upComingArr")
-//
-//        }
-//
-        UpdateConstant.duedatesave = dueDate.text ?? ""
+        //        if(dueDate.text == getCurrentDate() )
+        //        {
+        //            todayArray.append(examName.text!)
+        //            userDefaults.set(todayArray, forKey: "todayArr")
+        //
+        //        }
+        //
+        //        if(dueDate.text ?? "" > getCurrentDate() ){
+        //
+        //            print ("remove")
+        //            //  upcomingArray.remove(at: 0)
+        //            upcomingArray.append(examName.text!)
+        //            userDefaults.set(upcomingArray, forKey: "upComingArr")
+        //
+        //        }
+        //
+        //   UpdateConstant.duedatesave = dueDate.text ?? ""
         
         
         
@@ -177,71 +217,71 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-       if segue.identifier=="goToUpdate" {
-                  let destinationVC=segue.destination as! HomeViewController
-                  
-        
-        
-              
-                  saveData()
-                  
-                  if(dueDate.text == getCurrentDate() )
-                  {
-                      //print ("todayArray \(dateString)")
-                      
-                      //                    if(view){
-                      //
-                      //                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
-                      //
-                      //
-                      //                        todayArray.removeAll()
-                      
-                      
-                      
-                      //                         destinationVC.todayArray = todayArray
-                      //                    }
-                      //                    else
-                      //                    {
-                      //                        saveData()
-                      //
-                      //                         destinationVC.todayArray = todayArray
-                      //                    }
-                      //
-                      
-                      destinationVC.todayArray = todayArray
-                      
-                  }
-                  
-                  if(dueDate.text ?? "" > getCurrentDate() ){
-                      
-                      print ("AddSubmission")
-                      //  destinationVC.upComingArray = upcomingArray
-                    print("indexindex(\(index))")
-                                  upComingArray1.remove(at: index)
-                      destinationVC.completedArray = updateArray
-                    destinationVC.upComingArray = upComingArray1
-                    //destinationVC.index = index
-                    
-                  }
-                  
-              }
+        if segue.identifier=="goToUpdate" {
+            let destinationVC=segue.destination as! HomeViewController
+            
+            
+            
+            
+            saveData()
+            
+            if(dueDate.text == getCurrentDate() )
+            {
+                //print ("todayArray \(dateString)")
+                
+                //                    if(view){
+                //
+                //                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
+                //
+                //
+                //                        todayArray.removeAll()
+                
+                
+                
+                //                         destinationVC.todayArray = todayArray
+                //                    }
+                //                    else
+                //                    {
+                //                        saveData()
+                //
+                //                         destinationVC.todayArray = todayArray
+                //                    }
+                //
+                
+                destinationVC.todayArray = todayArray
+                
+            }
+            
+            if(dueDate.text ?? "" > getCurrentDate() ){
+                
+                print ("AddSubmission")
+                //  destinationVC.upComingArray = upcomingArray
+                print("indexindex(\(index))")
+//                upComingArray1.remove(at: index)
+//                destinationVC.completedArray = updateArray
+                destinationVC.upComingArray = updateArray
+                //destinationVC.index = index
+                
+            }
+            
         }
-        
-//        if segue.identifier=="goToHomeUpdate" {
-//            let destinationVC=segue.destination as! HomeViewController
-//
-//
-//            // userDefaults.removeSuite(named: "upComingArr")
-//
-//            saveData()
-//
-//            // userDefaults.set(upcomingArray, forKey: "upComingArr")
-//            //  destinationVC.upComingArray = upcomingArray
-//
-//
-//
-//        }
-  //  }
+    }
+    
+    //        if segue.identifier=="goToHomeUpdate" {
+    //            let destinationVC=segue.destination as! HomeViewController
+    //
+    //
+    //            // userDefaults.removeSuite(named: "upComingArr")
+    //
+    //            saveData()
+    //
+    //            // userDefaults.set(upcomingArray, forKey: "upComingArr")
+    //            //  destinationVC.upComingArray = upcomingArray
+    //
+    //
+    //
+    //        }
+    //  }
     
     //
     //    @objc func dateChange(datePicker: UIDatePicker)
@@ -344,14 +384,14 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
 }
 
 
-struct UpdateConstant {
-    static let COUNT="count"
-    static let ASSIGNMENT="assignment"
-    static let ASSIGNMENT_NAME="assignmentName"
-    static let COURSE_NAME="courseName"
-    static let TYPE="TYPE"
-    static let DUE_DATE="dueDate"
-    
-    static var duedatesave = ""
-}
+//struct UpdateConstant {
+//    static let COUNT="count"
+//    static let ASSIGNMENT="assignment"
+//    static let ASSIGNMENT_NAME="assignmentName"
+//    static let COURSE_NAME="courseName"
+//    static let TYPE="TYPE"
+//    static let DUE_DATE="dueDate"
+//
+//    static var duedatesave = ""
+//}
 
