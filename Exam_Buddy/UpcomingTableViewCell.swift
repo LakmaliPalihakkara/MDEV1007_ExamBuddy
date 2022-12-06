@@ -14,6 +14,7 @@ protocol UpcomingTableViewCellDelegate: AnyObject {
 
 class UpcomingTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var btnView: UIButton!
     weak var delegateUpcoming : HomeTableViewCellDelegate?
     
     static let identifer = "cellForInfoTable"

@@ -176,7 +176,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
               let cellUpcoming = tableView.dequeueReusableCell(withIdentifier: "cellForUpcomingTable", for: indexPath)as! UpcomingTableViewCell
               print ("cellForRowAt")
-
             
            // cellUpcoming.name.text = upComingArr?.exam
              cellUpcoming.name.text = upComingArray[indexPath.row].exam
@@ -186,6 +185,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             
              cellUpcoming.delegateUpcoming = self
+            
+            
+            cellUpcoming.btnView.tag = indexPath.row
+            cellUpcoming.btnView.addTarget(self, action: #selector(buttonClickMethod(_:)), for: .touchUpInside)
+
+
+
+
             return cellUpcoming
         }
         
@@ -216,6 +223,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
         
+    
+    @objc func buttonClickMethod(_ sender: UIButton){
+       let index = sender.tag
+        
+        print("buttonNumber (\(index))")
+    }
+    
        
     
     func getCurrentDate() -> String

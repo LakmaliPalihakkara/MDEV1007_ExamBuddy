@@ -35,13 +35,13 @@ class HomeTableViewCell: UITableViewCell {
         btnView.setTitleColor(.link, for: .normal)
     }
 
-    @IBAction func onClickView(_ sender: Any) {
-        
-        UserDefaults.standard.set(true, forKey: ViewConstant.VIEW)
-        
-        delegate?.didTapButton(with: title)
-        
-    }
+//    @IBAction func onClickView(_ sender: Any) {
+//
+//        UserDefaults.standard.set(true, forKey: ViewConstant.VIEW)
+//
+//        delegate?.didTapButton(with: title)
+//
+//    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
