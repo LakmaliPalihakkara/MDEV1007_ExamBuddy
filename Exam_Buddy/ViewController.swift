@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     
     let userObj: UserObject = UserObject()
     
+    let userData = UserDefaults.standard.data(forKey: "user")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,33 +35,50 @@ class ViewController: UIViewController {
     @IBAction func btnLogin(_ sender: Any) {
         
         let decoder = JSONDecoder()
-        if let userData = UserDefaults.standard.data(forKey: "user"),
-            let user = try? decoder.decode(UserObject.self, from: userData) {
+        
+        if( emailTextField.text == "")
+        {
             
-            if( emailTextField.text == "")
-            {
-                
-                emailTextField.text = ""
-                
-                emailTextField.attributedPlaceholder = NSAttributedString(
-                    string: "Please enter your email",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-            }
-                
-            else if( passwordTextField.text == "")
-            {
-                
-                passwordTextField.text = ""
-                
-                passwordTextField.attributedPlaceholder = NSAttributedString(
-                    string: "Please enter your password",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-            }
-                
-                
-                
-                
-            else if(user.email != emailTextField.text)
+            emailTextField.text = ""
+            
+            emailTextField.attributedPlaceholder = NSAttributedString(
+                string: "Please enter your email",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+            
+        else if( passwordTextField.text == "")
+        {
+            
+            passwordTextField.text = ""
+            
+            passwordTextField.attributedPlaceholder = NSAttributedString(
+                string: "Please enter your password",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+            
+        else if(userData == nil)
+        {
+            
+            emailTextField.text = ""
+            
+            emailTextField.attributedPlaceholder = NSAttributedString(
+                string: "No email found",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            
+            passwordTextField.text = ""
+            
+            passwordTextField.attributedPlaceholder = NSAttributedString(
+                string: "No password found",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+        else if
+            let user = try? decoder.decode(UserObject.self, from: userData!) {
+            
+            
+            
+            
+            
+            if(user.email != emailTextField.text)
             {
                 emailTextField.text = ""
                 
