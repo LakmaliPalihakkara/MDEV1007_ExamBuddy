@@ -36,6 +36,8 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     let userDefaults = UserDefaults.standard
     
+    var index : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,7 +53,8 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         
         //  setTextStyle()
         
-        
+        index = userDefaults.integer(forKey: "index")
+        print("userDefaultsindex(\(index))")
         
         examName.delegate = self
         
@@ -129,6 +132,9 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: true)
         updateArray.append(submission1)
         
+       
+        
+        
         do {
             // Create JSON Encoder
             let encoder = JSONEncoder()
@@ -174,6 +180,8 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
        if segue.identifier=="goToUpdate" {
                   let destinationVC=segue.destination as! HomeViewController
                   
+        
+        
               
                   saveData()
                   
@@ -208,8 +216,12 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
                       
                       print ("AddSubmission")
                       //  destinationVC.upComingArray = upcomingArray
+                    print("indexindex(\(index))")
+                                  upComingArray1.remove(at: index)
                       destinationVC.completedArray = updateArray
                     destinationVC.upComingArray = upComingArray1
+                    //destinationVC.index = index
+                    
                   }
                   
               }

@@ -35,7 +35,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
   //   var note : SubmissionObject?
     
-    
+    var index : Int = 0
 
     
     override func viewDidLoad() {
@@ -184,6 +184,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cellUpcoming.type.text = upComingArray[indexPath.row].date
             
             
+            
              cellUpcoming.delegateUpcoming = self
             
             
@@ -225,9 +226,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     
     @objc func buttonClickMethod(_ sender: UIButton){
-       let index = sender.tag
+       index = sender.tag
         
         print("buttonNumber (\(index))")
+        
+         UserDefaults.standard.set(index, forKey: "index")
     }
     
        
@@ -279,7 +282,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
           //  destinationVC.todayArray = todayArray
              destinationVC.upComingArray1 = upComingArray
              destinationVC.updateArray = completedArray
-        
+          //  destinationVC.index = index
+        print ("goToUpdateindex \(index)")
             
             
         }

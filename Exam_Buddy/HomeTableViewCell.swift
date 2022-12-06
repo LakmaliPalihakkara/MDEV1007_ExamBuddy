@@ -55,6 +55,8 @@ class HomeTableViewCell: UITableViewCell {
         print ("indexttle \(title)")
     }
     
+    
+    
    
 
 }
