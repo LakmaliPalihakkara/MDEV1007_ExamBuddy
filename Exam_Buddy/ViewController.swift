@@ -34,79 +34,79 @@ class ViewController: UIViewController {
     
     @IBAction func btnLogin(_ sender: Any) {
         
-        let decoder = JSONDecoder()
-        
-        if( emailTextField.text == "")
-        {
-            
-            emailTextField.text = ""
-            
-            emailTextField.attributedPlaceholder = NSAttributedString(
-                string: "Please enter your email",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-        }
-            
-        else if( passwordTextField.text == "")
-        {
-            
-            passwordTextField.text = ""
-            
-            passwordTextField.attributedPlaceholder = NSAttributedString(
-                string: "Please enter your password",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-        }
-            
-        else if(userData == nil)
-        {
-            
-            emailTextField.text = ""
-            
-            emailTextField.attributedPlaceholder = NSAttributedString(
-                string: "No email found",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-            
-            passwordTextField.text = ""
-            
-            passwordTextField.attributedPlaceholder = NSAttributedString(
-                string: "No password found",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
-        }
-        else if
-            let user = try? decoder.decode(UserObject.self, from: userData!) {
-            
-            
-            
-            
-            
-            if(user.email != emailTextField.text)
-            {
-                emailTextField.text = ""
-                
-                emailTextField.attributedPlaceholder = NSAttributedString(
-                    string: "Please enter correct email",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
-                )
-                
-            }
-            else if(user.password != passwordTextField.text)
-            {
-                passwordTextField.text = ""
-                
-                passwordTextField.attributedPlaceholder = NSAttributedString(
-                    string: "Please enter correct password",
-                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
-                )
-            }
-            else
-            {
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "home") as! HomeViewController
-                self.present(balanceViewController, animated: true, completion: nil)
-            }
-            
-            
-            
-        }
+//        let decoder = JSONDecoder()
+//
+//        if( emailTextField.text == "")
+//        {
+//
+//            emailTextField.text = ""
+//
+//            emailTextField.attributedPlaceholder = NSAttributedString(
+//                string: "Please enter your email",
+//                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+//        }
+//
+//        else if( passwordTextField.text == "")
+//        {
+//
+//            passwordTextField.text = ""
+//
+//            passwordTextField.attributedPlaceholder = NSAttributedString(
+//                string: "Please enter your password",
+//                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+//        }
+//
+//        else if(userData == nil)
+//        {
+//
+//            emailTextField.text = ""
+//
+//            emailTextField.attributedPlaceholder = NSAttributedString(
+//                string: "No email found",
+//                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+//
+//            passwordTextField.text = ""
+//
+//            passwordTextField.attributedPlaceholder = NSAttributedString(
+//                string: "No password found",
+//                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+//        }
+//        else if
+//            let user = try? decoder.decode(UserObject.self, from: userData!) {
+//
+//
+//
+//
+//
+//            if(user.email != emailTextField.text)
+//            {
+//                emailTextField.text = ""
+//
+//                emailTextField.attributedPlaceholder = NSAttributedString(
+//                    string: "Please enter correct email",
+//                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
+//                )
+//
+//            }
+//            else if(user.password != passwordTextField.text)
+//            {
+//                passwordTextField.text = ""
+//
+//                passwordTextField.attributedPlaceholder = NSAttributedString(
+//                    string: "Please enter correct password",
+//                    attributes: [NSAttributedString.Key.foregroundColor: UIColor.red]
+//                )
+//            }
+//            else
+//            {
+//                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//                let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "home") as! HomeViewController
+//                self.present(balanceViewController, animated: true, completion: nil)
+//            }
+//
+//
+//
+//        }
     }
     
     

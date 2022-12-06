@@ -14,9 +14,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-   
-    @IBOutlet weak var tblToday: UITableView!
     @IBOutlet weak var tblUpcoming: UITableView!
+    
+    @IBOutlet weak var tblToday: UITableView!
+    
     
     var todayArray:[String]=[]
     
@@ -40,12 +41,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
 
         
-         tblToday.backgroundColor = UIColor.clear
+        tblToday.backgroundColor = UIColor.clear
+        tblToday.layer.borderColor = UIColor.gray.cgColor
+        tblToday.layer.borderWidth = 1.0
+        
+        tblUpcoming.backgroundColor = UIColor.clear
+        tblUpcoming.layer.borderColor = UIColor.gray.cgColor
+        tblUpcoming.layer.borderWidth = 1.0
  
         
         let stringArray = userDefaults.stringArray(forKey: "todayArr") ?? [String]()
         
-        
+    
         todayArray = stringArray
         
         let data = UserDefaults.standard.data(forKey: "submissionAdd")
@@ -54,7 +61,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                let decoder = JSONDecoder()
 
                // Decode Note
-            upComingArr = try decoder.decode(SubmissionObject.self, from: data!)
+            
+            if(data != nil)
+            {
+                upComingArr = try decoder.decode(SubmissionObject.self, from: data!)
+                
+            }
 
            } catch {
                print("Unable to Decode Note (\(error))")
@@ -130,9 +142,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
               print ("cellForRowAt")
 
             
-            cellUpcoming.name.text = upComingArr?.exam
-            cellUpcoming.courseName.text = upComingArray[indexPath.row].course
-
+           // cellUpcoming.name.text = upComingArr?.exam
+             cellUpcoming.name.text = upComingArray[indexPath.row].exam
+         //   cellUpcoming.courseName.text = upComingArray[indexPath.row].course
+             cellUpcoming.courseName.text = upComingArray[indexPath.row].course
+            cellUpcoming.type.text = upComingArray[indexPath.row].date
+            
             
              cellUpcoming.delegateUpcoming = self
             return cellUpcoming
@@ -175,9 +190,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let destinationVC=segue.destination as! AddSubmissionViewController
 
              destinationVC.todayArray = todayArray
-            // destinationVC.upcomingArray = upComingArray
+             destinationVC.upcomingArray1 = upComingArray
             
-            destinationVC.upcomingArray1 = upComingArray
+        //    destinationVC.upcomingArray1 = upComingArray
            
             
             

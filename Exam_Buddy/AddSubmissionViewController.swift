@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
+class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var examName: UITextField!
@@ -24,209 +24,224 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     // var assignmentArray=[String]()
     
+    @IBOutlet weak var tblType: UITableView!
+    
+    @IBOutlet weak var btnType: UIButton!
+    
+    
+    @IBOutlet weak var tblDropDownHC: NSLayoutConstraint!
+    
     var submissionObject = [SubmissionObject]()
     
     
     
     var todayArray=[String]()
     var upcomingArray=[String]()
-     var upcomingArray1=[SubmissionObject]()
+    var upcomingArray1=[SubmissionObject]()
     
-      let datePicker = UIDatePicker()
+    let datePicker = UIDatePicker()
     
-        let userDefaults = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
+    
+    var isTableVisible = false
+     
+     var list = ["Exam", "Assignment"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        let datePicker = UIDatePicker()
-//        datePicker.datePickerMode = .date
-//        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-//        datePicker.frame.size = CGSize(width: 0, height: 250)
-//        datePicker.preferredDatePickerStyle = .wheels
-//
-//        dueDate.inputView = datePicker
         
-      //  if(examName.text  != ""){
+        tblType.delegate = self
+        tblType.dataSource = self
+        tblDropDownHC.constant = 0
+        
+        //        let datePicker = UIDatePicker()
+        //        datePicker.datePickerMode = .date
+        //        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
+        //        datePicker.frame.size = CGSize(width: 0, height: 250)
+        //        datePicker.preferredDatePickerStyle = .wheels
+        //
+        //        dueDate.inputView = datePicker
+        
+        //  if(examName.text  != ""){
         
         setTextStyle()
         
         
         
-      //  examName.delegate = self
+        //  examName.delegate = self
         
-     //   examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
-      //  }
+        //   examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
+        //  }
         
         createDatePicker()
     }
     
-
+    
     func saveData () {
         
         
         let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
-
+        
         let tenCount = userDefault + 1
         //var eachName = nameArray[indexOfTenant]
-
-
+        
+        
         UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
-
+        
         UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
-
+        
         UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
-
+        
         UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
-
+        
         UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
-//
-//        assignmentArray.append(examName.text!)
-//
-         let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
-//
+        //
+        //        assignmentArray.append(examName.text!)
+        //
+        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
+        //
         print ("UserDefaults\(String(describing: returnValue))")
         
-    
-       
-        
-     
         
         
-      if(dueDate.text == getCurrentDate() )
-      {
-         todayArray.append(examName.text!)
-         userDefaults.set(todayArray, forKey: "todayArr")
-
-      }
-    
+        
+        
+        
+        
+        if(dueDate.text == getCurrentDate() )
+        {
+            todayArray.append(examName.text!)
+            userDefaults.set(todayArray, forKey: "todayArr")
+            
+        }
+        
         if(dueDate.text ?? "" > getCurrentDate() ){
             
             
-          
-          //  upcomingArray.append(examName.text!)
             
-       //   userDefaults.set(upcomingArray, forKey: "upComingArr")
+            //  upcomingArray.append(examName.text!)
+            
+            //   userDefaults.set(upcomingArray, forKey: "upComingArr")
             
             let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!)
             upcomingArray1.append(submission1)
-            userDefaults.set(upcomingArray1, forKey: "upComingArr")
+           // userDefaults.set(upcomingArray1, forKey: "upComingArr")
             
-//            do {
-//                // Create JSON Encoder
-//                let encoder = JSONEncoder()
-//
-//                // Encode Note
-//                let data = try encoder.encode(submission1)
-//
-//                // Write/Set Data
-//                UserDefaults.standard.set(data, forKey: "submissionAdd")
-//
-//            } catch {
-//                print("Unable to Encode Note (\(error))")
-//            }
-
+                        do {
+                            // Create JSON Encoder
+                            let encoder = JSONEncoder()
             
-//            for submission in upcomingArray1 {
-//
-//
-//
-//                self.submissionObject += [submission1]
-//
-//                let encoder = JSONEncoder()
-//                           if let encoded = try? encoder.encode(submission) {
-//                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
-//                           }
-//
-//          //       upcomingArray.append(submission)
-//
-//        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
-//
-//                print(submission)
-//            }
-          
-      }
+                            // Encode Note
+                            let data = try encoder.encode(submission1)
+            
+                            // Write/Set Data
+                            UserDefaults.standard.set(data, forKey: "submissionAdd")
+            
+                        } catch {
+                            print("Unable to Encode Note (\(error))")
+                        }
+            
+            
+            //            for submission in upcomingArray1 {
+            //
+            //
+            //
+            //                self.submissionObject += [submission1]
+            //
+            //                let encoder = JSONEncoder()
+            //                           if let encoded = try? encoder.encode(submission) {
+            //                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
+            //                           }
+            //
+            //          //       upcomingArray.append(submission)
+            //
+            //        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
+            //
+            //                print(submission)
+            //            }
+            
+        }
         
         Constant.duedatesave = dueDate.text ?? ""
         
-       
+        
         
     }
     
-     // MARK: - Navigation
+    // MARK: - Navigation
     
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier=="goToHome" {
+            let destinationVC=segue.destination as! HomeViewController
             
-            if segue.identifier=="goToHome" {
-                let destinationVC=segue.destination as! HomeViewController
-
-              
+            
+            
+            //   var view = UserDefaults.standard.bool(forKey: UpdateConstant.VIEW)
+            
+            
+            
+            
+            
+            //                let formatter = DateFormatter()
+            //
+            //                formatter.dateFormat = "MMM dd, yyyy"
+            //                let now = Date()
+            //                let dateString = formatter.string(from:now)
+            //
+            //                print ("dueDate.text \(String(describing: dueDate.text))")
+            //                print ("dateString \(dateString)")
+            
+            saveData()
+            
+            if(dueDate.text == getCurrentDate() )
+            {
+                //print ("todayArray \(dateString)")
                 
-             //   var view = UserDefaults.standard.bool(forKey: UpdateConstant.VIEW)
+                //                    if(view){
+                //
+                //                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
+                //
+                //
+                //                        todayArray.removeAll()
                 
                 
                 
-              
+                //                         destinationVC.todayArray = todayArray
+                //                    }
+                //                    else
+                //                    {
+                //                        saveData()
+                //
+                //                         destinationVC.todayArray = todayArray
+                //                    }
+                //
                 
-//                let formatter = DateFormatter()
-//
-//                formatter.dateFormat = "MMM dd, yyyy"
-//                let now = Date()
-//                let dateString = formatter.string(from:now)
-//
-//                print ("dueDate.text \(String(describing: dueDate.text))")
-//                print ("dateString \(dateString)")
-                
-                saveData()
-                
-                if(dueDate.text == getCurrentDate() )
-                {
-                    //print ("todayArray \(dateString)")
-                    
-//                    if(view){
-//
-//                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
-//
-//
-//                        todayArray.removeAll()
-                        
-                         
-                        
-//                         destinationVC.todayArray = todayArray
-//                    }
-//                    else
-//                    {
-//                        saveData()
-//
-//                         destinationVC.todayArray = todayArray
-//                    }
-//
-                 
-                    destinationVC.todayArray = todayArray
-                
-                }
-                
-                if(dueDate.text ?? "" > getCurrentDate() ){
-                    
-                     print ("AddSubmission")
-                  //  destinationVC.upComingArray = upcomingArray
-                    destinationVC.upComingArray = upcomingArray1
-                }
+                destinationVC.todayArray = todayArray
                 
             }
+            
+            if(dueDate.text ?? "" > getCurrentDate() ){
+                
+                print ("AddSubmission")
+                //  destinationVC.upComingArray = upcomingArray
+                destinationVC.upComingArray = upcomingArray1
+            }
+            
         }
+    }
     
-//
-//    @objc func dateChange(datePicker: UIDatePicker)
-//    {
-//        dueDate.text = formatDate(date: datePicker.date)
-//    }
-//
-//    func formatDate(date: Date) -> String{
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "MMM dd yyyy"
-//        return formatter.string(from: date)
-//    }
+    //
+    //    @objc func dateChange(datePicker: UIDatePicker)
+    //    {
+    //        dueDate.text = formatDate(date: datePicker.date)
+    //    }
+    //
+    //    func formatDate(date: Date) -> String{
+    //        let formatter = DateFormatter()
+    //        formatter.dateFormat = "MMM dd yyyy"
+    //        return formatter.string(from: date)
+    //    }
     
     func getCurrentDate() -> String
     {
@@ -237,7 +252,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         
         return dateString
     }
-       
+    
     
     func createDatePicker(){
         
@@ -251,39 +266,39 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         
         
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
-            toolbar.setItems([doneBtn], animated: true)
+        toolbar.setItems([doneBtn], animated: true)
         
-//        if #available(iOS 13.4, *) {Thread()
-//           datePicker.preferredDatePickerStyle = .wheels
-//
-//
-//        }
-//
+        //        if #available(iOS 13.4, *) {Thread()
+        //           datePicker.preferredDatePickerStyle = .wheels
+        //
+        //
+        //        }
+        //
         dueDate.inputAccessoryView = toolbar
-                    
+        
         dueDate.inputView = datePicker
-                    
+        
         datePicker.datePickerMode = .date
-      
+        
     }
     
     
     @objc func donePressed(){
-           
-           let formatter = DateFormatter()
-           formatter.dateFormat = "MMM dd, yyyy"
-          // let selectedDate = formatter.string(from: datePicker.date)
-//           formatter.dateStyle = .medium
-//           formatter.timeStyle = .none
-           
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy"
+        // let selectedDate = formatter.string(from: datePicker.date)
+        //           formatter.dateStyle = .medium
+        //           formatter.timeStyle = .none
+        
         dueDate.text = formatter.string(from: datePicker.date)
-           self.view.endEditing(true)
-       }
+        self.view.endEditing(true)
+    }
     
     
     func setTextStyle(){
         
-
+        
         self.examName.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
         examName.layer.cornerRadius = 15.0
         examName.clipsToBounds = true
@@ -310,10 +325,68 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
         btnSave.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         btnSave.layer.cornerRadius = 10;
     }
-
-
-
-       
+    
+    @IBAction func typeDisplay(_ sender: Any) {
+        UIView.animate(withDuration: 0.5) {
+        if self.isTableVisible == false{
+            self.isTableVisible = true
+            self.tblDropDownHC.constant = 34.0 * 3.0
+        } else
+        {
+            self.tblDropDownHC.constant = 0
+            self.isTableVisible = false
+        }
+        self.view.layoutIfNeeded()
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == tblType
+        {
+        return list.count
+        }
+        return list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "type")
+        
+        if tableView == tblType {
+        
+        if cell == nil{
+            cell == UITableViewCell(style: .default, reuseIdentifier: "type")
+        }
+        //cell?.textLabel?.text = "\(indexPath.row + 1) rooms"
+        
+        cell?.textLabel?.text = list[indexPath.row]
+        
+        return cell!
+        }
+        
+        
+    
+       return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    
+        
+        btnType.setTitle((list[indexPath.row]), for: .normal)
+        
+        UIView.animate(withDuration: 0.5) {
+           
+                self.tblDropDownHC.constant = 0
+                self.isTableVisible = false
+            self.view.layoutIfNeeded()
+            
+        }
+    }
+    
+    
+    
+    
 }
 
 

@@ -26,7 +26,8 @@ class UpcomingTableViewCell: UITableViewCell {
     
     @IBOutlet weak var courseName: UILabel!
     
-
+    @IBOutlet weak var type: UILabel!
+    
     @IBAction func onClickBtnView(_ sender: Any) {
         
         UserDefaults.standard.set(true, forKey: ViewConstant.VIEW)
