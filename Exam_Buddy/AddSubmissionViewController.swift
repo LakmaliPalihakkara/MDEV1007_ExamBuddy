@@ -22,7 +22,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     @IBOutlet weak var btnSave: UIButton!
     
-    // var assignmentArray=[String]()
     
     @IBOutlet weak var tblType: UITableView!
     
@@ -38,6 +37,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     var todayArray=[String]()
     var upcomingArray=[String]()
     var upcomingArray1=[SubmissionObject]()
+    var updateArray=[SubmissionObject]()
     
     let datePicker = UIDatePicker()
     
@@ -54,24 +54,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         tblType.dataSource = self
         tblDropDownHC.constant = 0
         
-        //        let datePicker = UIDatePicker()
-        //        datePicker.datePickerMode = .date
-        //        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-        //        datePicker.frame.size = CGSize(width: 0, height: 250)
-        //        datePicker.preferredDatePickerStyle = .wheels
-        //
-        //        dueDate.inputView = datePicker
-        
-        //  if(examName.text  != ""){
-        
-        setTextStyle()
-        
-        
-        
-        //  examName.delegate = self
-        
-        //   examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
-        //  }
         
         createDatePicker()
     }
@@ -83,8 +65,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
         
         let tenCount = userDefault + 1
-        //var eachName = nameArray[indexOfTenant]
-        
+
         
         UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
         
@@ -95,11 +76,9 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
         
         UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
-        //
-        //        assignmentArray.append(examName.text!)
-        //
+     
         let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
-        //
+        
         print ("UserDefaults\(String(describing: returnValue))")
         
         
@@ -118,14 +97,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         if(dueDate.text ?? "" > getCurrentDate() ){
             
             
-            
-            //  upcomingArray.append(examName.text!)
-            
-            //   userDefaults.set(upcomingArray, forKey: "upComingArr")
-            
-            let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!)
+            let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: false)
             upcomingArray1.append(submission1)
-           // userDefaults.set(upcomingArray1, forKey: "upComingArr")
             
                         do {
                             // Create JSON Encoder
@@ -140,25 +113,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
                         } catch {
                             print("Unable to Encode Note (\(error))")
                         }
-            
-            
-            //            for submission in upcomingArray1 {
-            //
-            //
-            //
-            //                self.submissionObject += [submission1]
-            //
-            //                let encoder = JSONEncoder()
-            //                           if let encoded = try? encoder.encode(submission) {
-            //                               UserDefaults.standard.set(encoded, forKey: "submissionObject")
-            //                           }
-            //
-            //          //       upcomingArray.append(submission)
-            //
-            //        //        userDefaults.set(upcomingArray, forKey: "upComingArr")
-            //
-            //                print(submission)
-            //            }
             
         }
         
@@ -175,23 +129,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         if segue.identifier=="goToHome" {
             let destinationVC=segue.destination as! HomeViewController
             
-            
-            
-            //   var view = UserDefaults.standard.bool(forKey: UpdateConstant.VIEW)
-            
-            
-            
-            
-            
-            //                let formatter = DateFormatter()
-            //
-            //                formatter.dateFormat = "MMM dd, yyyy"
-            //                let now = Date()
-            //                let dateString = formatter.string(from:now)
-            //
-            //                print ("dueDate.text \(String(describing: dueDate.text))")
-            //                print ("dateString \(dateString)")
-            
+        
             saveData()
             
             if(dueDate.text == getCurrentDate() )
@@ -226,22 +164,12 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
                 print ("AddSubmission")
                 //  destinationVC.upComingArray = upcomingArray
                 destinationVC.upComingArray = upcomingArray1
+                destinationVC.completedArray = updateArray
             }
             
         }
     }
     
-    //
-    //    @objc func dateChange(datePicker: UIDatePicker)
-    //    {
-    //        dueDate.text = formatDate(date: datePicker.date)
-    //    }
-    //
-    //    func formatDate(date: Date) -> String{
-    //        let formatter = DateFormatter()
-    //        formatter.dateFormat = "MMM dd yyyy"
-    //        return formatter.string(from: date)
-    //    }
     
     func getCurrentDate() -> String
     {
@@ -268,12 +196,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
         toolbar.setItems([doneBtn], animated: true)
         
-        //        if #available(iOS 13.4, *) {Thread()
-        //           datePicker.preferredDatePickerStyle = .wheels
-        //
-        //
-        //        }
-        //
         dueDate.inputAccessoryView = toolbar
         
         dueDate.inputView = datePicker
@@ -287,9 +209,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM dd, yyyy"
-        // let selectedDate = formatter.string(from: datePicker.date)
-        //           formatter.dateStyle = .medium
-        //           formatter.timeStyle = .none
         
         dueDate.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)

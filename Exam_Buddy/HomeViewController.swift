@@ -18,16 +18,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tblToday: UITableView!
     
+    @IBOutlet weak var tblCompleted: UITableView!
+    
     
     var todayArray:[String]=[]
     
     var upComingArray:[SubmissionObject]=[]
+    var completedArray:[SubmissionObject]=[]
     
     let notificationGenerator = NotificationGenerator()
     
     let userDefaults = UserDefaults.standard
     
     var upComingArr : SubmissionObject?
+    var completedArr : SubmissionObject?
     
   //   var note : SubmissionObject?
     
@@ -48,6 +52,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tblUpcoming.backgroundColor = UIColor.clear
         tblUpcoming.layer.borderColor = UIColor.gray.cgColor
         tblUpcoming.layer.borderWidth = 1.0
+        
+        tblCompleted.backgroundColor = UIColor.clear
+        tblCompleted.layer.borderColor = UIColor.gray.cgColor
+        tblCompleted.layer.borderWidth = 1.0
  
         
         let stringArray = userDefaults.stringArray(forKey: "todayArr") ?? [String]()
@@ -56,6 +64,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         todayArray = stringArray
         
         let data = UserDefaults.standard.data(forKey: "submissionAdd")
+         let dataUpdate = UserDefaults.standard.data(forKey: "submissionUpdate")
            do {
                // Create JSON Decoder
                let decoder = JSONDecoder()
@@ -65,6 +74,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             if(data != nil)
             {
                 upComingArr = try decoder.decode(SubmissionObject.self, from: data!)
+                
+                
+            }
+            
+            if(dataUpdate != nil)
+            {
+                completedArr = try decoder.decode(SubmissionObject.self, from: dataUpdate!)
                 
             }
 
@@ -86,6 +102,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
          {
         tblUpcoming.dataSource = self
         }
+        
+        print("completedArr?.exam  (\(String(describing: completedArray.count) ))")
+
+        if (completedArr?.exam  != nil)
+         {
+        tblCompleted.dataSource = self
+        }
 
     }
     
@@ -104,10 +127,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         
-        if (Constant.duedatesave > getCurrentDate() || upComingArray.count != 0)
+    //    if (Constant.duedatesave > getCurrentDate() || upComingArray.count != 0)
+        if(tableView == self.tblUpcoming)
         {
               
             return upComingArray.count
+        }
+        
+        print("upComingArray.count   (\(String(describing: completedArray.count ) ))")
+
+        
+    //    if (completedArray.count != 0)
+            if(tableView == self.tblCompleted)
+        {
+              
+            return completedArray.count
         }
         
          return 0
@@ -135,8 +169,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
               return cell
         }
         
-        if (upComingArr?.exam != nil)
-        // if(tableView == tblUpcoming)
+
+        
+      //  if (upComingArr?.exam != nil)
+        if(tableView == self.tblUpcoming)
         {
               let cellUpcoming = tableView.dequeueReusableCell(withIdentifier: "cellForUpcomingTable", for: indexPath)as! UpcomingTableViewCell
               print ("cellForRowAt")
@@ -151,6 +187,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
              cellUpcoming.delegateUpcoming = self
             return cellUpcoming
+        }
+        
+        print("completedArr?.examTable (\(String(describing: completedArray.count)))")
+
+        
+      //  if (completedArr?.exam != nil)
+        if(tableView == self.tblCompleted)
+        {
+              let cellCompleted = tableView.dequeueReusableCell(withIdentifier: "cellCompleted", for: indexPath)as! CompletedTableTableViewCell
+              print ("cellCompleted")
+
+            
+           // cellUpcoming.name.text = upComingArr?.exam
+             cellCompleted.name.text = completedArray[indexPath.row].exam
+         //   cellUpcoming.courseName.text = upComingArray[indexPath.row].course
+          //   cellCompleted.courseName.text = upComingArray[indexPath.row].course
+          //  cellCompleted.type.text = upComingArray[indexPath.row].date
+            
+            
+             cellCompleted.delegateCompleted = self
+            return cellCompleted
         }
         
         
@@ -191,6 +248,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
              destinationVC.todayArray = todayArray
              destinationVC.upcomingArray1 = upComingArray
+            destinationVC.updateArray = completedArray
             
         //    destinationVC.upcomingArray1 = upComingArray
            
@@ -200,11 +258,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if segue.identifier=="goToUpdate" {
             
-            let viewButton = sender as! UIButton
+          //  let viewButton = sender as! UIButton
             let destinationVC=segue.destination as! UpdateSubmissionViewController
             
        
-            destinationVC.todayArray = todayArray
+          //  destinationVC.todayArray = todayArray
+             destinationVC.upComingArray1 = upComingArray
+             destinationVC.updateArray = completedArray
         
             
             

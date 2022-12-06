@@ -13,5 +13,6 @@ struct SubmissionObject: Codable
     public var exam: String = ""
     public var course : String = ""
     public var type : String = ""
-     public var date : String = ""
+    public var date : String = ""
+    public var done : Bool = false
 }
