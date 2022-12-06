@@ -9,33 +9,81 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-
-     
-        @IBOutlet weak var textFieldUsername: UITextField!
-        
-        @IBOutlet weak var textFieldEmail: UITextField!
-        
-        @IBOutlet weak var textFieldPassword: UITextField!
-        
-        @IBOutlet weak var textFieldConfirmPassword: UITextField!
-        
-        let userObj: UserObject = UserObject()
-        var filterData : [String] = []
-        
+    
+    
+    @IBOutlet weak var textFieldUsername: UITextField!
+    
+    @IBOutlet weak var textFieldEmail: UITextField!
+    
+    @IBOutlet weak var textFieldPassword: UITextField!
+    
+    @IBOutlet weak var textFieldConfirmPassword: UITextField!
+    
+    let userObj: UserObject = UserObject()
+    var filterData : [String] = []
+    
     @IBOutlet weak var btnSignup: UIButton!
     
     override func viewDidLoad() {
-            super.viewDidLoad()
-
-            // Do any additional setup after loading the view.
-            
-            setTextStyle()
-                      
-        }
+        super.viewDidLoad()
         
-
-        @IBAction func btnSignUp(_ sender: Any) {
+        // Do any additional setup after loading the view.
+        
+        setTextStyle()
+        
+    }
+    
+    
+    @IBAction func btnSignUp(_ sender: Any) {
+        
+        if( textFieldUsername.text == "")
+        {
             
+            textFieldUsername.text = ""
+            
+            textFieldUsername.attributedPlaceholder = NSAttributedString(
+                string: "Please enter your username",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+            
+        else if( textFieldEmail.text == "")
+        {
+            
+            textFieldEmail.text = ""
+            
+            textFieldEmail.attributedPlaceholder = NSAttributedString(
+                string: "Please enter your email",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+        else if( textFieldPassword.text == "")
+        {
+            
+            textFieldPassword.text = ""
+            
+            textFieldPassword.attributedPlaceholder = NSAttributedString(
+                string: "Please enter your password",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+        else if( textFieldConfirmPassword.text == "")
+        {
+            
+            textFieldConfirmPassword.text = ""
+            
+            textFieldConfirmPassword.attributedPlaceholder = NSAttributedString(
+                string: "Please confirm your password",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+        else if( textFieldPassword.text != textFieldConfirmPassword.text)
+        {
+            textFieldPassword.text = ""
+            textFieldConfirmPassword.text = ""
+            
+            textFieldConfirmPassword.attributedPlaceholder = NSAttributedString(
+                string: "Wrong confirm password",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+        }
+        else
+        {
             
             let userObj = UserObject(username: textFieldUsername.text!, email: textFieldEmail.text!, password: textFieldPassword.text!)
             
@@ -48,12 +96,14 @@ class SignUpViewController: UIViewController {
             let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "home") as! HomeViewController
             self.present(balanceViewController, animated: true, completion: nil)
             
-            
         }
+        
+        
+    }
     
     func setTextStyle(){
         
-
+        
         self.textFieldUsername.layer.borderColor = UIColor(red:119/255, green:212/255, blue:252/255, alpha: 1).cgColor
         textFieldUsername.layer.cornerRadius = 15.0
         textFieldUsername.clipsToBounds = true
@@ -80,6 +130,6 @@ class SignUpViewController: UIViewController {
         btnSignup.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         btnSignup.layer.cornerRadius = 10;
     }
-
-    }
+    
+}
 

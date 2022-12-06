@@ -110,13 +110,22 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate {
             
             let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!)
             upcomingArray1.append(submission1)
-          //  userDefaults.set(upcomingArray1, forKey: "upComingArr")
+            userDefaults.set(upcomingArray1, forKey: "upComingArr")
             
-            do {
-                let encodeData = try JSONEncoder().encode(upcomingArray1)
-                UserDefaults.standard.set(encodeData, forKey: "submissionAdd")
-                // synchronize is not needed
-            } catch { print(error) }
+//            do {
+//                // Create JSON Encoder
+//                let encoder = JSONEncoder()
+//
+//                // Encode Note
+//                let data = try encoder.encode(submission1)
+//
+//                // Write/Set Data
+//                UserDefaults.standard.set(data, forKey: "submissionAdd")
+//
+//            } catch {
+//                print("Unable to Encode Note (\(error))")
+//            }
+
             
 //            for submission in upcomingArray1 {
 //

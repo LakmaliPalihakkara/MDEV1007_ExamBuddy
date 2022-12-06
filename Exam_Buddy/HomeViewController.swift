@@ -19,7 +19,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tblUpcoming: UITableView!
     
     var todayArray:[String]=[]
- //   var upComingArray:[String]=[]
     
     var upComingArray:[SubmissionObject]=[]
     
@@ -37,31 +36,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let decoder = JSONDecoder()
-//        if let submissionData = UserDefaults.standard.data(forKey: "submissionObject"),
-//            let user = try? decoder.decode(UserObject.self, from: submissionData) {
-//
-//
-//            for submission in submissionData {
-//
-//               print("submission\(submission)")
-//            }
-//
-//        }
-        //
+        
+        NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
+
         
          tblToday.backgroundColor = UIColor.clear
-        
-     //   todayArr = userDefaults.object(forKey: "todayArr")
-//        print ("UserDefaults\(String(describing: todayArr))")
+ 
         
         let stringArray = userDefaults.stringArray(forKey: "todayArr") ?? [String]()
-   //     let upcomingArr = userDefaults.stringArray(forKey: "upComingArr") ?? [String]()
         
-         
-       // print ("stringArray\(String(describing: stringArray))")
+        
         todayArray = stringArray
-   //     upComingArray = upcomingArr
         
         let data = UserDefaults.standard.data(forKey: "submissionAdd")
            do {
@@ -74,8 +59,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
            } catch {
                print("Unable to Decode Note (\(error))")
            }
-       
-           // upComingArray = upComingArr
         
         
         
@@ -86,8 +69,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tblToday.dataSource = self
         }
         
-        
-        if (Constant.duedatesave > getCurrentDate() || upComingArray.count != 0)
+        print("upComingArr?.exam  (\(String(describing: upComingArr?.exam) ))")
+        if (upComingArr?.exam  != nil)
          {
         tblUpcoming.dataSource = self
         }
@@ -140,16 +123,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
               return cell
         }
         
-        if (Constant.duedatesave > getCurrentDate()  ||  upComingArray.count != 0)
+        if (upComingArr?.exam != nil)
         // if(tableView == tblUpcoming)
         {
               let cellUpcoming = tableView.dequeueReusableCell(withIdentifier: "cellForUpcomingTable", for: indexPath)as! UpcomingTableViewCell
               print ("cellForRowAt")
-         //    cellUpcoming.name.text = upComingArray[indexPath.row]
-         //   cellUpcoming.courseName.text = upComingArray[indexPath.row]
+
             
-            cellUpcoming.name.text = upComingArray[indexPath.row].exam
+            cellUpcoming.name.text = upComingArr?.exam
             cellUpcoming.courseName.text = upComingArray[indexPath.row].course
+
             
              cellUpcoming.delegateUpcoming = self
             return cellUpcoming
@@ -205,11 +188,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let viewButton = sender as! UIButton
             let destinationVC=segue.destination as! UpdateSubmissionViewController
             
-            //destinationVC.rowSelected = viewButton.tag
+       
             destinationVC.todayArray = todayArray
-           // destinationVC.upcomingArray = upComingArray
-            
-          //  destinationVC.upcomingArray1 = upComingArray
         
             
             
@@ -233,14 +213,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             } catch { print(error) }
         }
     }
-//   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//         
-//
-//     print ("indexPath \(indexPath)")
-//    
-//    selectedRow = indexPath.row
-//    }
-   
+
    
 
     
