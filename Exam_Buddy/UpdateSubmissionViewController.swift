@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
+class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource  {
     
     
     @IBOutlet weak var examName: UITextField!
@@ -24,11 +24,18 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var btnUpdate: UIButton!
     
+    @IBOutlet weak var tblType: UITableView!
+    
+    @IBOutlet weak var tblDropDownHC: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnType: UIButton!
+    
     var todayArray=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
     var upComingArray1=[SubmissionObject]()
     
-    
+    var list = ["Exam", "Assignment"]
+      var isTableVisible = false
     
     //var todayArray=[String]()
     var upcomingArray=[String]()
@@ -55,6 +62,10 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         //  if(examName.text  != ""){
         
         //  setTextStyle()
+        
+        tblType.delegate = self
+        tblType.dataSource = self
+        tblDropDownHC.constant = 0
         
         index = userDefaults.integer(forKey: "index")
         print("userDefaultsindex(\(index))")
@@ -95,7 +106,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
         examName.text = upComingArray1[index].exam
         courseName.text = upComingArray1[index].course
         dueDate.text = upComingArray1[index].date
-        type.text = upComingArray1[index].type
+        btnType.setTitle(upComingArray1[index].type, for: .normal)
         
         createDatePicker()
     }
@@ -380,6 +391,66 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    
+    @IBAction func onClickType(_ sender: Any) {
+        UIView.animate(withDuration: 0.5) {
+            if self.isTableVisible == false{
+                self.isTableVisible = true
+                self.tblDropDownHC.constant = 34.0 * 3.0
+            } else
+            {
+                self.tblDropDownHC.constant = 0
+                self.isTableVisible = false
+            }
+            self.view.layoutIfNeeded()
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == tblType
+        {
+            return list.count
+        }
+        return list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "type")
+        
+        if tableView == tblType {
+            
+            if cell == nil{
+                cell == UITableViewCell(style: .default, reuseIdentifier: "type")
+            }
+            //cell?.textLabel?.text = "\(indexPath.row + 1) rooms"
+            
+            cell?.textLabel?.text = list[indexPath.row]
+            
+            return cell!
+        }
+        
+        
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+        btnType.setTitle((list[indexPath.row]), for: .normal)
+        
+        UIView.animate(withDuration: 0.5) {
+            
+            self.tblDropDownHC.constant = 0
+            self.isTableVisible = false
+            self.view.layoutIfNeeded()
+            
+        }
+    }
+    
+
     
     
 }

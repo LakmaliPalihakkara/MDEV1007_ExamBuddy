@@ -100,10 +100,10 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
        // if(dueDate.text ?? "" > getCurrentDate() ){
             
             
-            let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: false)
+        let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: false)
             
-        print("dueDate.text (\(String(describing: dueDate.text)))")
-        print("getCurrentDate() (\(getCurrentDate()))")
+      //  print("btntype (\(String(describing: btnType.titleLabel?.text)))")
+     
             if(dueDate.text! == getCurrentDate())
             {
                 todayArray.append(submission1)
