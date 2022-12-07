@@ -34,18 +34,19 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     
     
-    var todayArray=[String]()
+    //  var todayArray=[String]()
     var upcomingArray=[String]()
     var upcomingArray1=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
+    var todayArray=[SubmissionObject]()
     
     let datePicker = UIDatePicker()
     
     let userDefaults = UserDefaults.standard
     
     var isTableVisible = false
-     
-     var list = ["Exam", "Assignment"]
+    
+    var list = ["Exam", "Assignment"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,67 +57,81 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         
         
         createDatePicker()
+        
+        
     }
     
     
     func saveData () {
         
-//
-//        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
-//
-//        let tenCount = userDefault + 1
-//
-//
-//        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
-//
-//        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
-//
-//        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
-//
-//        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
-//
-//        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
-//
-//        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
-//
-//        print ("UserDefaults\(String(describing: returnValue))")
-//
+        //
+        //        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
+        //
+        //        let tenCount = userDefault + 1
+        //
+        //
+        //        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
+        //
+        //        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
+        //
+        //        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
+        //
+        //        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
+        //
+        //        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
+        //
+        //        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
+        //
+        //        print ("UserDefaults\(String(describing: returnValue))")
+        //
         
         
         
         
         
         
-        if(dueDate.text == getCurrentDate() )
-        {
-            todayArray.append(examName.text!)
-            userDefaults.set(todayArray, forKey: "todayArr")
-            
-        }
+//        if(dueDate.text == getCurrentDate() )
+//        {
+//            todayArray.append(examName.text!)
+//            userDefaults.set(todayArray, forKey: "todayArr")
+//
+//        }
         
-        if(dueDate.text ?? "" > getCurrentDate() ){
+       // if(dueDate.text ?? "" > getCurrentDate() ){
             
             
             let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: false)
-            upcomingArray1.append(submission1)
             
-                        do {
-                            // Create JSON Encoder
-                            let encoder = JSONEncoder()
+        print("dueDate.text (\(String(describing: dueDate.text)))")
+        print("getCurrentDate() (\(getCurrentDate()))")
+            if(dueDate.text! == getCurrentDate())
+            {
+                todayArray.append(submission1)
+                UserDefaults.standard.set(todayArray[0].exam, forKey: "notify")
+            }
             
-                            // Encode Note
-                            let data = try encoder.encode(submission1)
+            if(dueDate.text! > getCurrentDate()) {
+                upcomingArray1.append(submission1)
+            }
             
-                            // Write/Set Data
-                            UserDefaults.standard.set(data, forKey: "submissionAdd")
+            do {
+                // Create JSON Encoder
+                let encoder = JSONEncoder()
+                
+                // Encode Note
+                let data = try encoder.encode(submission1)
+                
+                // Write/Set Data
+                UserDefaults.standard.set(data, forKey: "submissionAdd")
+                
+            } catch {
+                print("Unable to Encode Note (\(error))")
+            }
             
-                        } catch {
-                            print("Unable to Encode Note (\(error))")
-                        }
-            
-        }
+         //   UserDefaults.standard.set(upcomingArray1[0].exam, forKey: "exam")
+     //   }
         
-      //  Constant.duedatesave = dueDate.text ?? ""
+        //  Constant.duedatesave = dueDate.text ?? ""
         
         
         
@@ -129,7 +144,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         if segue.identifier=="goToHome" {
             let destinationVC=segue.destination as! HomeViewController
             
-        
+            
             saveData()
             
             if(dueDate.text == getCurrentDate() )
@@ -155,6 +170,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
                 //                    }
                 //
                 
+                //destinationVC.todayArray = todayArray
                 destinationVC.todayArray = todayArray
                 
             }
@@ -165,6 +181,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
                 //  destinationVC.upComingArray = upcomingArray
                 destinationVC.upComingArray = upcomingArray1
                 destinationVC.completedArray = updateArray
+                destinationVC.todayArray = todayArray
+                
             }
             
         }
@@ -247,15 +265,15 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     @IBAction func typeDisplay(_ sender: Any) {
         UIView.animate(withDuration: 0.5) {
-        if self.isTableVisible == false{
-            self.isTableVisible = true
-            self.tblDropDownHC.constant = 34.0 * 3.0
-        } else
-        {
-            self.tblDropDownHC.constant = 0
-            self.isTableVisible = false
-        }
-        self.view.layoutIfNeeded()
+            if self.isTableVisible == false{
+                self.isTableVisible = true
+                self.tblDropDownHC.constant = 34.0 * 3.0
+            } else
+            {
+                self.tblDropDownHC.constant = 0
+                self.isTableVisible = false
+            }
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -263,7 +281,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tblType
         {
-        return list.count
+            return list.count
         }
         return list.count
     }
@@ -272,32 +290,32 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         var cell = tableView.dequeueReusableCell(withIdentifier: "type")
         
         if tableView == tblType {
-        
-        if cell == nil{
-            cell == UITableViewCell(style: .default, reuseIdentifier: "type")
+            
+            if cell == nil{
+                cell == UITableViewCell(style: .default, reuseIdentifier: "type")
+            }
+            //cell?.textLabel?.text = "\(indexPath.row + 1) rooms"
+            
+            cell?.textLabel?.text = list[indexPath.row]
+            
+            return cell!
         }
-        //cell?.textLabel?.text = "\(indexPath.row + 1) rooms"
         
-        cell?.textLabel?.text = list[indexPath.row]
+        
         
         return cell!
-        }
-        
-        
-    
-       return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    
+        
         
         btnType.setTitle((list[indexPath.row]), for: .normal)
         
         UIView.animate(withDuration: 0.5) {
-           
-                self.tblDropDownHC.constant = 0
-                self.isTableVisible = false
+            
+            self.tblDropDownHC.constant = 0
+            self.isTableVisible = false
             self.view.layoutIfNeeded()
             
         }
@@ -319,6 +337,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
 //
 //    static var duedatesave = ""
 //}
+
+
 
 
 

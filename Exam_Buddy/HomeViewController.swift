@@ -21,8 +21,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var tblCompleted: UITableView!
     
     
-    var todayArray:[String]=[]
-    
+   
+    var todayArray:[SubmissionObject]=[]
     var upComingArray:[SubmissionObject]=[]
     var completedArray:[SubmissionObject]=[]
     
@@ -36,13 +36,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
   //   var note : SubmissionObject?
     
     var index : Int = 0
+    
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+       
         
         NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
+        
 
         
         tblToday.backgroundColor = UIColor.clear
@@ -76,6 +79,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 upComingArr = try decoder.decode(SubmissionObject.self, from: data!)
                 
                 
+                
             }
             
             if(dataUpdate != nil)
@@ -90,12 +94,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         
-//        if(Constant.duedatesave == getCurrentDate() || todayArray.count != 0)
-//         {
-//
-//
-//        tblToday.dataSource = self
-//        }
+        if(todayArray.count != 0)
+         {
+
+
+        tblToday.dataSource = self
+        }
         
         print("upComingArr?.exam  (\(String(describing: upComingArr?.exam) ))")
         if (upComingArr?.exam  != nil)
@@ -155,17 +159,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
       //  if(tableView == tblToday)
         {
           
-            let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifer, for: indexPath)as! HomeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellForInfoTable", for: indexPath)as! HomeTableViewCell
             
            
                    cell.contentView.backgroundColor = UIColor.clear
             
-            cell.configure(with: todayArray[indexPath.row])
+        //    cell.configure(with: todayArray[indexPath.row])
             
            
        
-            cell.assignmentName.text = todayArray[indexPath.row]
-            cell.delegate = self
+            cell.assignmentName.text = todayArray[indexPath.row].exam
+             cell.courseName.text = todayArray[indexPath.row].course
+             cell.dueDate.text = todayArray[indexPath.row].date
+            //cell.delegate = self
               return cell
         }
         
@@ -211,8 +217,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
            // cellUpcoming.name.text = upComingArr?.exam
              cellCompleted.name.text = completedArray[indexPath.row].exam
-         //   cellUpcoming.courseName.text = upComingArray[indexPath.row].course
-          //   cellCompleted.courseName.text = upComingArray[indexPath.row].course
+             cellCompleted.course.text = completedArray[indexPath.row].course
+             cellCompleted.date.text = completedArray[indexPath.row].course
           //  cellCompleted.type.text = upComingArray[indexPath.row].date
             
             
@@ -274,7 +280,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
              destinationVC.todayArray = todayArray
              destinationVC.upcomingArray1 = upComingArray
-            destinationVC.updateArray = completedArray
+             destinationVC.updateArray = completedArray
             
         //    destinationVC.upcomingArray1 = upComingArray
            
@@ -288,9 +294,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let destinationVC=segue.destination as! UpdateSubmissionViewController
             
        
-          //  destinationVC.todayArray = todayArray
+             destinationVC.todayArray = todayArray
              destinationVC.upComingArray1 = upComingArray
              destinationVC.updateArray = completedArray
+            
             
 //            
 //            destinationVC.examName.text = upComingArray[index].exam

@@ -24,12 +24,13 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var btnUpdate: UIButton!
     
+    var todayArray=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
     var upComingArray1=[SubmissionObject]()
     
     
     
-    var todayArray=[String]()
+    //var todayArray=[String]()
     var upcomingArray=[String]()
     
     let datePicker = UIDatePicker()

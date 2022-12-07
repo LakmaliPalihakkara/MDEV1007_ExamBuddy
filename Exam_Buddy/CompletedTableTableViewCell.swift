@@ -14,6 +14,10 @@ class CompletedTableTableViewCell: UITableViewCell {
     
     @IBOutlet weak var name: UILabel!
     
+    @IBOutlet weak var course: UILabel!
+    
+    @IBOutlet weak var date: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

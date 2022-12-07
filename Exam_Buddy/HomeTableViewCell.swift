@@ -24,6 +24,10 @@ class HomeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var assignmentName: UILabel!
     
+    @IBOutlet weak var courseName: UILabel!
+    
+    @IBOutlet weak var dueDate: UILabel!
+    
     @IBOutlet weak var btnView: UIButton!
     
     private var title : String = ""
