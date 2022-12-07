@@ -311,20 +311,6 @@
                                                             <color key="textColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbc-7E-lD7">
-                                                            <rect key="frame" x="329" y="5" width="34" height="27.5"/>
-                                                            <color key="backgroundColor" red="0.46666666670000001" green="0.83137254900000002" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="34" id="xkI-BO-lUi"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                            <state key="normal" title="View">
-                                                                <color key="titleColor" red="0.0" green="0.035294117649999998" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                            <connections>
-                                                                <segue destination="2ov-VF-LQb" kind="show" identifier="goToUpdate" id="mD1-yI-caV"/>
-                                                            </connections>
-                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeI-ek-vej">
                                                             <rect key="frame" x="233" y="10" width="79" height="22"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -338,17 +324,12 @@
                                                     <constraints>
                                                         <constraint firstItem="vKd-e0-bUT" firstAttribute="centerY" secondItem="7qk-Pv-xqq" secondAttribute="centerY" id="7G9-l5-Prz"/>
                                                         <constraint firstItem="vKd-e0-bUT" firstAttribute="top" secondItem="7qk-Pv-xqq" secondAttribute="topMargin" id="CoH-Tu-qdX"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="wbc-7E-lD7" secondAttribute="trailing" constant="-8" id="O9r-GZ-5Lq"/>
-                                                        <constraint firstItem="vKd-e0-bUT" firstAttribute="centerY" secondItem="wbc-7E-lD7" secondAttribute="centerY" constant="3" id="SHL-iI-TUn"/>
-                                                        <constraint firstItem="wbc-7E-lD7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vKd-e0-bUT" secondAttribute="trailing" constant="8" symbolic="YES" id="Vf1-Jk-fh5"/>
                                                         <constraint firstItem="vKd-e0-bUT" firstAttribute="leading" secondItem="7qk-Pv-xqq" secondAttribute="leadingMargin" constant="11" id="ZqU-BX-OUo"/>
-                                                        <constraint firstItem="wbc-7E-lD7" firstAttribute="top" secondItem="7qk-Pv-xqq" secondAttribute="topMargin" constant="-6" id="doK-2m-CFV"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="assignmentName" destination="vKd-e0-bUT" id="dZG-Ni-9hi"/>
-                                                    <outlet property="btnView" destination="wbc-7E-lD7" id="guN-Vl-cao"/>
                                                     <outlet property="courseName" destination="019-5q-xvC" id="YPy-kM-IdF"/>
                                                     <outlet property="dueDate" destination="JeI-ek-vej" id="EzQ-VS-cTP"/>
                                                 </connections>
@@ -469,17 +450,6 @@
                                                             <color key="textColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGI-zy-e84">
-                                                            <rect key="frame" x="329" y="5" width="34" height="27.5"/>
-                                                            <color key="backgroundColor" red="0.46666666670000001" green="0.83137254900000002" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="34" id="e2S-fJ-26k"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                            <state key="normal" title="View">
-                                                                <color key="titleColor" red="0.0" green="0.035294117649999998" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqg-zQ-ffE">
                                                             <rect key="frame" x="243" y="9" width="78" height="22"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -491,13 +461,9 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="FGI-zy-e84" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sry-XH-T2s" secondAttribute="trailing" constant="8" symbolic="YES" id="8MH-iY-1hE"/>
                                                         <constraint firstItem="sry-XH-T2s" firstAttribute="top" secondItem="VtO-bN-tAn" secondAttribute="topMargin" id="8U2-BW-Yma"/>
                                                         <constraint firstItem="sry-XH-T2s" firstAttribute="leading" secondItem="VtO-bN-tAn" secondAttribute="leadingMargin" constant="11" id="BXc-Gy-uQm"/>
                                                         <constraint firstItem="sry-XH-T2s" firstAttribute="centerY" secondItem="VtO-bN-tAn" secondAttribute="centerY" id="C3u-d8-42E"/>
-                                                        <constraint firstItem="FGI-zy-e84" firstAttribute="top" secondItem="VtO-bN-tAn" secondAttribute="topMargin" constant="-6" id="XZA-Ot-g0c"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="FGI-zy-e84" secondAttribute="trailing" constant="-9" id="kNY-GY-ntq"/>
-                                                        <constraint firstItem="sry-XH-T2s" firstAttribute="centerY" secondItem="FGI-zy-e84" secondAttribute="centerY" constant="2.75" id="kd5-5g-cpD"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -914,7 +880,7 @@
                                 <rect key="frame" x="357" y="44" width="37" height="38"/>
                                 <state key="normal" image="close"/>
                                 <connections>
-                                    <segue destination="4EX-9C-d0Q" kind="show" id="hKR-jo-3hb"/>
+                                    <segue destination="4EX-9C-d0Q" kind="show" identifier="goToHome" id="hKR-jo-3hb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1099,8 +1065,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YoL-8f-hbX"/>
-        <segue reference="hKR-jo-3hb"/>
+        <segue reference="9Rb-Ry-vz4"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="add" width="59" height="59"/>

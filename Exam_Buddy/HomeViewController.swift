@@ -223,7 +223,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
            // cellUpcoming.name.text = upComingArr?.exam
              cellCompleted.name.text = completedArray[indexPath.row].exam
              cellCompleted.course.text = completedArray[indexPath.row].course
-             cellCompleted.date.text = completedArray[indexPath.row].course
+             cellCompleted.date.text = completedArray[indexPath.row].date
           //  cellCompleted.type.text = upComingArray[indexPath.row].date
             
             

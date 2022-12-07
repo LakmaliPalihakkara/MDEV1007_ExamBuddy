@@ -34,7 +34,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let submissionName = UserDefaults.group.object(forKey: "name")
         let dueDate = UserDefaults.group.object(forKey: "date")
         
-        name.text = ((submissionName as! String) + "\nDue Date: " + (dueDate as! String))
+        name.text = ((submissionName as! String))
+        date.text = ("Due Date: " + (dueDate as! String))
       //  date.text =dueDate as? Str ing
         
         completionHandler(NCUpdateResult.newData)
