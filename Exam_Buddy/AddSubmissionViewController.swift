@@ -35,7 +35,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     
     //  var todayArray=[String]()
-    var upcomingArray=[String]()
+  //  var upcomingArray=[String]()
     var upcomingArray1=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
     var todayArray=[SubmissionObject]()
@@ -55,6 +55,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         tblType.dataSource = self
         tblDropDownHC.constant = 0
         
+        setTextStyle()
         
         createDatePicker()
         

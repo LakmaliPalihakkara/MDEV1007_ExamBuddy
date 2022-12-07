@@ -37,7 +37,7 @@ class WellDoneViewController: UIViewController {
     @objc func animate()
     {
         UIView.animate(withDuration: 1, animations: {
-            self.welldone.frame = CGRect(x: 0, y: 0, width: 400, height: 400)
+            self.welldone.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
             self.welldone.center = self.view.center
         }, completion: { done in
             if done {
@@ -64,9 +64,6 @@ class WellDoneViewController: UIViewController {
             
             if segue.identifier=="goToHome" {
                 let destinationVC=segue.destination as! HomeViewController
-                
-                print("completedArray (\(completedArray))")
-                print("upComingArray (\(upComingArray))")
             
                     destinationVC.completedArray = completedArray
                     destinationVC.upComingArray = upComingArray

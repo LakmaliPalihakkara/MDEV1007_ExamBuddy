@@ -35,7 +35,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     var upComingArray1=[SubmissionObject]()
     
     var list = ["Exam", "Assignment"]
-      var isTableVisible = false
+    var isTableVisible = false
     
     //var todayArray=[String]()
     var upcomingArray=[String]()
@@ -70,39 +70,39 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         index = userDefaults.integer(forKey: "index")
         print("userDefaultsindex(\(index))")
         
-//        let data = UserDefaults.standard.data(forKey: "submissionAdd")
-//
-//        do {
-//            // Create JSON Decoder
-//            let decoder = JSONDecoder()
-//
-//            // Decode Note
-//
-//            if(data != nil)
-//            {
-//                updateArr = try decoder.decode(SubmissionObject.self, from: data!)
-//
-//
-//            }
-//
-//
-//        } catch {
-//            print("Unable to Decode Note (\(error))")
-//        }
-//
-//
-//        examName.delegate = self
-//
-//        // examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
-//        examName.text = updateArr?.exam
-//        courseName.text = updateArr?.course
-//        dueDate.text = updateArr?.date
-//        type.text = updateArr?.type
-//        //  }
-//
+        //        let data = UserDefaults.standard.data(forKey: "submissionAdd")
+        //
+        //        do {
+        //            // Create JSON Decoder
+        //            let decoder = JSONDecoder()
+        //
+        //            // Decode Note
+        //
+        //            if(data != nil)
+        //            {
+        //                updateArr = try decoder.decode(SubmissionObject.self, from: data!)
+        //
+        //
+        //            }
+        //
+        //
+        //        } catch {
+        //            print("Unable to Decode Note (\(error))")
+        //        }
+        //
+        //
+        //        examName.delegate = self
+        //
+        //        // examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
+        //        examName.text = updateArr?.exam
+        //        courseName.text = updateArr?.course
+        //        dueDate.text = updateArr?.date
+        //        type.text = updateArr?.type
+        //        //  }
+        //
         
+        setTextStyle()
         
-
         examName.text = upComingArray1[index].exam
         courseName.text = upComingArray1[index].course
         dueDate.text = upComingArray1[index].date
@@ -116,16 +116,16 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     @IBAction func onClickDoneBtn(_ sender: Any) {
         
         
-        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to Logout?", preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Did you submit the " + examName.text! + "?", preferredStyle: .alert)
         
         // Create OK button with action handler
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+        let ok = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
             print("Ok button click...")
             self.checkDone()
         })
         
         // Create Cancel button with action handlder
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+        let cancel = UIAlertAction(title: "No", style: .cancel) { (action) -> Void in
             print("Cancel button click...")
         }
         
@@ -145,7 +145,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         let balanceViewController = storyBoard.instantiateViewController(withIdentifier: "welldone") as! WellDoneViewController
         self.present(balanceViewController, animated: true, completion: nil)
         
-          saveData()
+        saveData()
         
         upComingArray1.remove(at: index)
         balanceViewController.completedArray = updateArray
@@ -181,7 +181,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         //
         //
         
-        let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: type.text!, date: dueDate.text!, done: true)
+        let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: true)
         updateArray.append(submission1)
         
         
@@ -195,7 +195,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
             let data = try encoder.encode(submission1)
             
             // Write/Set Data
-            UserDefaults.standard.set(data, forKey: "submissionUpdate")
+            UserDefaults.standard.set(data, forKey: "submissionAdd")
             
         } catch {
             print("Unable to Encode Note (\(error))")
@@ -269,8 +269,8 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
                 print ("AddSubmission")
                 //  destinationVC.upComingArray = upcomingArray
                 print("indexindex(\(index))")
-//                upComingArray1.remove(at: index)
-//                destinationVC.completedArray = updateArray
+                //                upComingArray1.remove(at: index)
+                //                destinationVC.completedArray = updateArray
                 destinationVC.upComingArray = updateArray
                 //destinationVC.index = index
                 
@@ -385,9 +385,9 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         dueDate.clipsToBounds = true
         dueDate.layer.borderWidth = 2.0
         
-        //           btnSave.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
-        //           btnSave.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-        //           btnSave.layer.cornerRadius = 10;
+        btnUpdate.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+        btnUpdate.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        btnUpdate.layer.cornerRadius = 10;
     }
     
     
@@ -450,7 +450,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         }
     }
     
-
+    
     
     
 }

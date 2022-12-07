@@ -37,12 +37,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var index : Int = 0
     
-
+    @IBOutlet weak var username: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+       let decoder = JSONDecoder()
+        let userData = UserDefaults.standard.data(forKey: "user")
+        if let user = try? decoder.decode(UserObject.self, from: userData!) {
+            username.text = user.username
+        }
         
        // NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
         
