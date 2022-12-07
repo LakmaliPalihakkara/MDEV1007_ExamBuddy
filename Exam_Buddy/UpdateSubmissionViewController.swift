@@ -37,7 +37,6 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     var list = ["Exam", "Assignment"]
     var isTableVisible = false
     
-    //var todayArray=[String]()
     var upcomingArray=[String]()
     
     let datePicker = UIDatePicker()
@@ -48,60 +47,19 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     
     var updateArr : SubmissionObject?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        let datePicker = UIDatePicker()
-        //        datePicker.datePickerMode = .date
-        //        datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: UIControl.Event.valueChanged)
-        //        datePicker.frame.size = CGSize(width: 0, height: 250)
-        //        datePicker.preferredDatePickerStyle = .wheels
-        //
-        //        dueDate.inputView = datePicker
-        
-        //  if(examName.text  != ""){
-        
-        //  setTextStyle()
         
         tblType.delegate = self
         tblType.dataSource = self
         tblDropDownHC.constant = 0
         
-        index = userDefaults.integer(forKey: "index")
-        print("userDefaultsindex(\(index))")
-        
-        //        let data = UserDefaults.standard.data(forKey: "submissionAdd")
-        //
-        //        do {
-        //            // Create JSON Decoder
-        //            let decoder = JSONDecoder()
-        //
-        //            // Decode Note
-        //
-        //            if(data != nil)
-        //            {
-        //                updateArr = try decoder.decode(SubmissionObject.self, from: data!)
-        //
-        //
-        //            }
-        //
-        //
-        //        } catch {
-        //            print("Unable to Decode Note (\(error))")
-        //        }
-        //
-        //
-        //        examName.delegate = self
-        //
-        //        // examName.text = UserDefaults.standard.string(forKey: Constant.ASSIGNMENT_NAME)
-        //        examName.text = updateArr?.exam
-        //        courseName.text = updateArr?.course
-        //        dueDate.text = updateArr?.date
-        //        type.text = updateArr?.type
-        //        //  }
-        //
-        
         setTextStyle()
+        
+        index = userDefaults.integer(forKey: "index")
+        
         
         examName.text = upComingArray1[index].exam
         courseName.text = upComingArray1[index].course
@@ -118,22 +76,22 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         
         let dialogMessage = UIAlertController(title: "Confirm", message: "Did you submit the " + examName.text! + "?", preferredStyle: .alert)
         
-        // Create OK button with action handler
+        
         let ok = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
             print("Ok button click...")
             self.checkDone()
         })
         
-        // Create Cancel button with action handlder
+        
         let cancel = UIAlertAction(title: "No", style: .cancel) { (action) -> Void in
             print("Cancel button click...")
         }
         
-        //Add OK and Cancel button to dialog message
+        
         dialogMessage.addAction(ok)
         dialogMessage.addAction(cancel)
         
-        // Present dialog message to user
+        
         self.present(dialogMessage, animated: true, completion: nil)
     }
     
@@ -157,30 +115,6 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     func saveData () {
         
         
-        //       let userDefault=UserDefaults.standard.integer(forKey: UpdateConstant.COUNT)
-        
-        //       let tenCount = userDefault + 1
-        //var eachName = nameArray[indexOfTenant]
-        
-        
-        //        UserDefaults.standard.set(examName.text, forKey: UpdateConstant.ASSIGNMENT_NAME)
-        //
-        //        UserDefaults.standard.set(courseName.text!, forKey: UpdateConstant.COURSE_NAME+courseName.text!)
-        //
-        //        UserDefaults.standard.set(type.text, forKey: UpdateConstant.TYPE+type.text!)
-        //
-        //        UserDefaults.standard.set(dueDate.text, forKey: UpdateConstant.DUE_DATE+dueDate.text!)
-        //
-        //        UserDefaults.standard.set(tenCount, forKey: UpdateConstant.COUNT)
-        //        //
-        //        //        assignmentArray.append(examName.text!)
-        //        //
-        //        let returnValue: [String]? = UserDefaults.standard.object(forKey: UpdateConstant.ASSIGNMENT_NAME) as? [String]
-        //        //
-        //        print ("UserDefaults\(String(describing: returnValue))")
-        //
-        //
-        
         let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: true)
         updateArray.append(submission1)
         
@@ -188,38 +122,18 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         
         
         do {
-            // Create JSON Encoder
+            
             let encoder = JSONEncoder()
             
-            // Encode Note
+            
             let data = try encoder.encode(submission1)
             
-            // Write/Set Data
+            
             UserDefaults.standard.set(data, forKey: "submissionAdd")
             
         } catch {
             print("Unable to Encode Note (\(error))")
         }
-        
-        
-        
-        //        if(dueDate.text == getCurrentDate() )
-        //        {
-        //            todayArray.append(examName.text!)
-        //            userDefaults.set(todayArray, forKey: "todayArr")
-        //
-        //        }
-        //
-        //        if(dueDate.text ?? "" > getCurrentDate() ){
-        //
-        //            print ("remove")
-        //            //  upcomingArray.remove(at: 0)
-        //            upcomingArray.append(examName.text!)
-        //            userDefaults.set(upcomingArray, forKey: "upComingArr")
-        //
-        //        }
-        //
-        //   UpdateConstant.duedatesave = dueDate.text ?? ""
         
         
         
@@ -237,75 +151,18 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
             
             saveData()
             
-            if(dueDate.text == getCurrentDate() )
-            {
-                //print ("todayArray \(dateString)")
-                
-                //                    if(view){
-                //
-                //                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
-                //
-                //
-                //                        todayArray.removeAll()
-                
-                
-                
-                //                         destinationVC.todayArray = todayArray
-                //                    }
-                //                    else
-                //                    {
-                //                        saveData()
-                //
-                //                         destinationVC.todayArray = todayArray
-                //                    }
-                //
-                
-                destinationVC.todayArray = todayArray
-                
-            }
             
-            if(dueDate.text ?? "" > getCurrentDate() ){
-                
-                print ("AddSubmission")
-                //  destinationVC.upComingArray = upcomingArray
-                print("indexindex(\(index))")
-                //                upComingArray1.remove(at: index)
-                //                destinationVC.completedArray = updateArray
-                destinationVC.upComingArray = updateArray
-                //destinationVC.index = index
-                
-            }
+            
+          //  destinationVC.completedArray = updateArray
+            destinationVC.upComingArray = updateArray
+            destinationVC.todayArray = todayArray
+            //destinationVC.index = index
+            
             
         }
     }
     
-    //        if segue.identifier=="goToHomeUpdate" {
-    //            let destinationVC=segue.destination as! HomeViewController
-    //
-    //
-    //            // userDefaults.removeSuite(named: "upComingArr")
-    //
-    //            saveData()
-    //
-    //            // userDefaults.set(upcomingArray, forKey: "upComingArr")
-    //            //  destinationVC.upComingArray = upcomingArray
-    //
-    //
-    //
-    //        }
-    //  }
     
-    //
-    //    @objc func dateChange(datePicker: UIDatePicker)
-    //    {
-    //        dueDate.text = formatDate(date: datePicker.date)
-    //    }
-    //
-    //    func formatDate(date: Date) -> String{
-    //        let formatter = DateFormatter()
-    //        formatter.dateFormat = "MMM dd yyyy"
-    //        return formatter.string(from: date)
-    //    }
     
     func getCurrentDate() -> String
     {
@@ -332,12 +189,6 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         let doneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
         toolbar.setItems([doneBtn], animated: true)
         
-        //        if #available(iOS 13.4, *) {Thread()
-        //           datePicker.preferredDatePickerStyle = .wheels
-        //
-        //
-        //        }
-        //
         dueDate.inputAccessoryView = toolbar
         
         dueDate.inputView = datePicker
@@ -351,9 +202,6 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM dd, yyyy"
-        // let selectedDate = formatter.string(from: datePicker.date)
-        //           formatter.dateStyle = .medium
-        //           formatter.timeStyle = .none
         
         dueDate.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
@@ -454,16 +302,3 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     
     
 }
-
-
-//struct UpdateConstant {
-//    static let COUNT="count"
-//    static let ASSIGNMENT="assignment"
-//    static let ASSIGNMENT_NAME="assignmentName"
-//    static let COURSE_NAME="courseName"
-//    static let TYPE="TYPE"
-//    static let DUE_DATE="dueDate"
-//
-//    static var duedatesave = ""
-//}
-

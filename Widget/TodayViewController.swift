@@ -24,19 +24,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
-      //  let submissionName = UserDefaults.standard.string(forKey: "name")
+
         
         let submissionName = UserDefaults.group.object(forKey: "name")
         let dueDate = UserDefaults.group.object(forKey: "date")
         
         name.text = ((submissionName as! String))
         date.text = ("Due Date: " + (dueDate as! String))
-      //  date.text =dueDate as? Str ing
+    
         
         completionHandler(NCUpdateResult.newData)
     }

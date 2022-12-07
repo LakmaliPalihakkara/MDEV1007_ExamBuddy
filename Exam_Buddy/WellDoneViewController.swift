@@ -68,6 +68,8 @@ class WellDoneViewController: UIViewController {
                     destinationVC.completedArray = completedArray
                     destinationVC.upComingArray = upComingArray
                  
+                print("completedArray (\(completedArray))")
+                print("upComingArray (\(upComingArray))")
                     
                 }
                 

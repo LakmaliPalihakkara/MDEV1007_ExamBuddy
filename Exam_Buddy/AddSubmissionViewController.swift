@@ -33,9 +33,6 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     var submissionObject = [SubmissionObject]()
     
     
-    
-    //  var todayArray=[String]()
-  //  var upcomingArray=[String]()
     var upcomingArray1=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
     var todayArray=[SubmissionObject]()
@@ -65,83 +62,38 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
     func saveData () {
         
-        //
-        //        let userDefault=UserDefaults.standard.integer(forKey: Constant.COUNT)
-        //
-        //        let tenCount = userDefault + 1
-        //
-        //
-        //        UserDefaults.standard.set(examName.text, forKey: Constant.ASSIGNMENT_NAME)
-        //
-        //        UserDefaults.standard.set(courseName.text!, forKey: Constant.COURSE_NAME+courseName.text!)
-        //
-        //        UserDefaults.standard.set(type.text, forKey: Constant.TYPE+type.text!)
-        //
-        //        UserDefaults.standard.set(dueDate.text, forKey: Constant.DUE_DATE+dueDate.text!)
-        //
-        //        UserDefaults.standard.set(tenCount, forKey: Constant.COUNT)
-        //
-        //        let returnValue: [String]? = UserDefaults.standard.object(forKey: Constant.ASSIGNMENT_NAME) as? [String]
-        //
-        //        print ("UserDefaults\(String(describing: returnValue))")
-        //
         
-        
-        
-        
-        
-        
-//        if(dueDate.text == getCurrentDate() )
-//        {
-//            todayArray.append(examName.text!)
-//            userDefaults.set(todayArray, forKey: "todayArr")
-//
-//        }
-        
-       // if(dueDate.text ?? "" > getCurrentDate() ){
-            
-            
         let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: false)
-            
-      //  print("btntype (\(String(describing: btnType.titleLabel?.text)))")
-     
-            if(dueDate.text! == getCurrentDate())
-            {
-                todayArray.append(submission1)
-//                UserDefaults.standard.set(todayArray[0].exam, forKey: "name")
-//                UserDefaults.standard.set(todayArray[0].date, forKey: "date")
-                
-             //  UserDefaults(suiteName: "group.com.example.ExamBuddy")!.set(todayArray[0].exam, forKey: "name")
-               
-                UserDefaults.group.set(todayArray[0].exam, forKey: "name")
-                UserDefaults.group.set(todayArray[0].date, forKey: "date")
-                
-                NotificationGenerator.generateNotification(title: "Reminder", description: todayArray[0].exam + "\nDue date:" + todayArray[0].date )
-
-            }
-            
-            if(dueDate.text! > getCurrentDate()) {
-                upcomingArray1.append(submission1)
-            }
-            
-            do {
-                // Create JSON Encoder
-                let encoder = JSONEncoder()
-                
-                // Encode Note
-                let data = try encoder.encode(submission1)
-                
-                // Write/Set Data
-                UserDefaults.standard.set(data, forKey: "submissionAdd")
-                
-            } catch {
-                print("Unable to Encode Note (\(error))")
-            }
-            
-         //   UserDefaults.standard.set(upcomingArray1[0].exam, forKey: "exam")
-     //   }
         
-        //  Constant.duedatesave = dueDate.text ?? ""
+        
+        if(dueDate.text! == getCurrentDate())
+        {
+            todayArray.append(submission1)
+            
+            UserDefaults.group.set(todayArray[0].exam, forKey: "name")
+            UserDefaults.group.set(todayArray[0].date, forKey: "date")
+            
+            NotificationGenerator.generateNotification(title: "Reminder", description: todayArray[0].exam + "\nDue date:" + todayArray[0].date )
+            
+        }
+        
+        if(dueDate.text! > getCurrentDate()) {
+            upcomingArray1.append(submission1)
+        }
+        
+        do {
+            
+            let encoder = JSONEncoder()
+            
+            
+            let data = try encoder.encode(submission1)
+            
+            
+            UserDefaults.standard.set(data, forKey: "submissionAdd")
+            
+        } catch {
+            print("Unable to Encode Note (\(error))")
+        }
         
         
         
@@ -157,43 +109,31 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
             
             saveData()
             
-            if(dueDate.text == getCurrentDate() )
-            {
-                //print ("todayArray \(dateString)")
-                
-                //                    if(view){
-                //
-                //                        UserDefaults.standard.removeObject(forKey: Constant.ASSIGNMENT_NAME)
-                //
-                //
-                //                        todayArray.removeAll()
-                
-                
-                
-                //                         destinationVC.todayArray = todayArray
-                //                    }
-                //                    else
-                //                    {
-                //                        saveData()
-                //
-                //                         destinationVC.todayArray = todayArray
-                //                    }
-                //
-                
-                //destinationVC.todayArray = todayArray
-                destinationVC.todayArray = todayArray
-                
-            }
             
-            if(dueDate.text ?? "" > getCurrentDate() ){
-                
-                print ("AddSubmission")
-                //  destinationVC.upComingArray = upcomingArray
-                destinationVC.upComingArray = upcomingArray1
-                destinationVC.completedArray = updateArray
-                destinationVC.todayArray = todayArray
-                
-            }
+           
+            
+                        if(dueDate.text == getCurrentDate() )
+                        {
+            
+                            destinationVC.todayArray = todayArray
+                            destinationVC.upComingArray = upcomingArray1
+                            destinationVC.completedArray = updateArray
+            
+                        }
+            
+                        if(dueDate.text ?? "" > getCurrentDate() ){
+            
+            
+                            //upComingArray1.remove(at: index)
+                            //destinationVC.completedArray = updateArray
+                         //   destinationVC.upComingArray = updateArray
+                            //destinationVC.index = index
+                            
+                            destinationVC.todayArray = todayArray
+                            destinationVC.upComingArray = upcomingArray1
+                            destinationVC.completedArray = updateArray
+            
+                        }
             
         }
     }
@@ -337,19 +277,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
 }
 
 extension UserDefaults {
-  static let group = UserDefaults(suiteName: "group.com.example.ExamBuddy")!
+    static let group = UserDefaults(suiteName: "group.com.example.ExamBuddy")!
 }
-
-//struct Constant {
-//    static let COUNT="count"
-//    static let ASSIGNMENT="assignment"
-//    static let ASSIGNMENT_NAME="assignmentName"
-//    static let COURSE_NAME="courseName"
-//    static let TYPE="TYPE"
-//    static let DUE_DATE="dueDate"
-//
-//    static var duedatesave = ""
-//}
 
 
 
