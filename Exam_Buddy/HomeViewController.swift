@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
        
         
-        NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
+       // NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
         
 
         

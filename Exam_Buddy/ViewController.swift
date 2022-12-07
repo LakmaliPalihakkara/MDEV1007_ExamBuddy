@@ -107,6 +107,13 @@ class ViewController: UIViewController {
 //
 //
 //        }
+        
+        let notify = UserDefaults.standard.string(forKey: "notify")
+        
+        if(notify != nil)
+        {
+         //   NotificationGenerator.generateNotification(title: "Reminder", description: "submission")
+        }
     }
     
     

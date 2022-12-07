@@ -107,7 +107,16 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
             if(dueDate.text! == getCurrentDate())
             {
                 todayArray.append(submission1)
-                UserDefaults.standard.set(todayArray[0].exam, forKey: "notify")
+//                UserDefaults.standard.set(todayArray[0].exam, forKey: "name")
+//                UserDefaults.standard.set(todayArray[0].date, forKey: "date")
+                
+             //  UserDefaults(suiteName: "group.com.example.ExamBuddy")!.set(todayArray[0].exam, forKey: "name")
+               
+                UserDefaults.group.set(todayArray[0].exam, forKey: "name")
+                UserDefaults.group.set(todayArray[0].date, forKey: "date")
+                
+                NotificationGenerator.generateNotification(title: "Reminder", description: todayArray[0].exam + "\nDue date:" + todayArray[0].date )
+
             }
             
             if(dueDate.text! > getCurrentDate()) {
@@ -326,6 +335,9 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     
 }
 
+extension UserDefaults {
+  static let group = UserDefaults(suiteName: "group.com.example.ExamBuddy")!
+}
 
 //struct Constant {
 //    static let COUNT="count"
