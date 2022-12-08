@@ -303,8 +303,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         if editingStyle == .delete{
-            upComingArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            if(tableView == self.tblToday)
+            {
+                todayArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if(tableView == self.tblUpcoming)
+            {
+                upComingArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if(tableView == self.tblCompleted)
+            {
+                completedArray.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
             
             
             UserDefaults.standard.removeObject(forKey:"index")

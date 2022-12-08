@@ -36,6 +36,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     var upcomingArray1=[SubmissionObject]()
     var updateArray=[SubmissionObject]()
     var todayArray=[SubmissionObject]()
+  
     
     let datePicker = UIDatePicker()
     
@@ -44,6 +45,8 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     var isTableVisible = false
     
     var list = ["Exam", "Assignment"]
+    
+    let submission1 = SubmissionObject?.self
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +66,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
     func saveData () {
         
         
-        let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: false)
+       let submission1 = SubmissionObject(exam: examName.text!, course: courseName.text!, type: btnType.currentTitle!, date: dueDate.text!, done: false)
         
         
         if(dueDate.text! == getCurrentDate())
@@ -106,34 +109,18 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         if segue.identifier=="goToHome" {
             let destinationVC=segue.destination as! HomeViewController
             
-            
+            if(submission1.self != nil)
+            {
             saveData()
+            }
             
             
-           
             
-                        if(dueDate.text == getCurrentDate() )
-                        {
-            
-                            destinationVC.todayArray = todayArray
-                            destinationVC.upComingArray = upcomingArray1
-                            destinationVC.completedArray = updateArray
-            
-                        }
-            
-                        if(dueDate.text ?? "" > getCurrentDate() ){
+            destinationVC.todayArray = todayArray
+            destinationVC.upComingArray = upcomingArray1
+            destinationVC.completedArray = updateArray
             
             
-                            //upComingArray1.remove(at: index)
-                            //destinationVC.completedArray = updateArray
-                         //   destinationVC.upComingArray = updateArray
-                            //destinationVC.index = index
-                            
-                            destinationVC.todayArray = todayArray
-                            destinationVC.upComingArray = upcomingArray1
-                            destinationVC.completedArray = updateArray
-            
-                        }
             
         }
     }
@@ -181,6 +168,7 @@ class AddSubmissionViewController: UIViewController, UITextFieldDelegate, UITabl
         dueDate.text = formatter.string(from: datePicker.date)
         self.view.endEditing(true)
     }
+    
     
     
     func setTextStyle(){

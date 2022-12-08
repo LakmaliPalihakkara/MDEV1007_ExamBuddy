@@ -19,8 +19,7 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
     
     @IBOutlet weak var dueDate: UITextField!
     
-    
-    // var assignmentArray=[String]()
+
     
     @IBOutlet weak var btnUpdate: UIButton!
     
@@ -153,10 +152,10 @@ class UpdateSubmissionViewController: UIViewController, UITextFieldDelegate, UIT
             
             
             
-          //  destinationVC.completedArray = updateArray
+       
             destinationVC.upComingArray = updateArray
             destinationVC.todayArray = todayArray
-            //destinationVC.index = index
+           
             
             
         }

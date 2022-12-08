@@ -18,10 +18,10 @@ class NotificationGenerator{
         content.title = title
         content.body = description
         
-        let trigger2 = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         
         let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger2)
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         
        
         let notificationCenter = UNUserNotificationCenter.current()
